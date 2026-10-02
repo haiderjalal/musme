@@ -1,0 +1,5 @@
+Musme Brand Kit
+Version: 1.0
+Date: 2026-09-25
+Scope: Local website identity system and developer assets
+Approval state: Uploaded raster logo treated as APPROVED MASTER artwork

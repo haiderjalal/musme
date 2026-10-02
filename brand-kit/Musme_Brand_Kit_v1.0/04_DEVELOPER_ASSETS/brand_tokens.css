@@ -1,0 +1,16 @@
+:root {
+  --musme-mint-300: #a8f8da;
+  --musme-mint-500: #6befbc;
+  --musme-mint-700: #2eae84;
+  --musme-mint-ink: #08271d;
+  --musme-charcoal-950: #0d0f0c;
+  --musme-charcoal-900: #151815;
+  --musme-charcoal-850: #1b1e1a;
+  --musme-soft-white: #f2f4ee;
+  --musme-silver-500: #a1a89d;
+  --musme-silver-700: #747b72;
+  --musme-radius-surface: 16px;
+  --musme-radius-control: 999px;
+  --musme-font-sans: "Geist", Arial, sans-serif;
+  --musme-font-mono: "Geist Mono", monospace;
+}

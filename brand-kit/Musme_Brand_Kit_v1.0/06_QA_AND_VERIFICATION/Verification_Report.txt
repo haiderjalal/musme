@@ -1,0 +1,12 @@
+Brand Kit Asset Validation Report
+Root: C:\Haider Jalal\Codex\Projects\Musme\brand-kit\Musme_Brand_Kit_v1.0
+
+PASS  | 01_MASTER_LOGOS\PNG\Musme_Logo_Approved_Raster_Master.png | PNG 1254x1254; alpha range (0, 255); visible bbox (0, 54, 1239, 1254); mean RGBA [24.1, 56.2, 44.5, 54.5]
+PASS  | 02_BRAND_MARK_AND_ICONS\App_Social_Icons\Musme_App_Icon_192.png | PNG 192x192; alpha range (0, 255); visible bbox (27, 44, 165, 147); mean RGBA [16.0, 36.7, 28.8, 28.2]
+PASS  | 02_BRAND_MARK_AND_ICONS\App_Social_Icons\Musme_App_Icon_512.png | PNG 512x512; alpha range (0, 255); visible bbox (72, 119, 437, 391); mean RGBA [13.5, 30.7, 24.2, 28.2]
+PASS  | 02_BRAND_MARK_AND_ICONS\Favicon\Musme_Favicon_32.png | PNG 32x32; alpha range (0, 255); visible bbox (3, 6, 28, 25); mean RGBA [32.5, 73.6, 58.4, 35.0]
+PASS  | 02_BRAND_MARK_AND_ICONS\Mark\Musme_Mark_Transparent.png | PNG 1254x936; alpha range (0, 255); visible bbox (0, 3, 1239, 935); mean RGBA [32.3, 75.3, 59.7, 73.1]
+PASS  | 05_PREVIEWS\Musme_Palette_Overview.png | PNG 1600x900; alpha range (255, 255); visible bbox (0, 0, 1600, 900); mean RGBA [112.2, 170.1, 147.9, 255.0]
+PASS  | 05_PREVIEWS\Reverse_On_Dark\Musme_Mark_On_Dark.png | PNG 1600x900; alpha range (255, 255); visible bbox (0, 0, 1600, 900); mean RGBA [22.6, 37.8, 29.9, 255.0]
+
+Summary: PASS=7 WARN=0 FAIL=0

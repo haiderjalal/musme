@@ -1,0 +1,30 @@
+{
+  "brand": "Musme",
+  "version": "1.0",
+  "colors": {
+    "mint": {
+      "300": "#A8F8DA",
+      "500": "#6BEFBC",
+      "700": "#2EAE84",
+      "ink": "#08271D"
+    },
+    "charcoal": {
+      "950": "#0D0F0C",
+      "900": "#151815",
+      "850": "#1B1E1A"
+    },
+    "neutral": {
+      "softWhite": "#F2F4EE",
+      "silver500": "#A1A89D",
+      "silver700": "#747B72"
+    }
+  },
+  "typography": {
+    "sans": "Geist, Arial, sans-serif",
+    "mono": "Geist Mono, monospace"
+  },
+  "radii": {
+    "surface": "16px",
+    "control": "999px"
+  }
+}
