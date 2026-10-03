@@ -48,6 +48,23 @@ const serviceGroups = [
   },
 ];
 
+const products = [
+  {
+    name: "Test Shift",
+    category: "AI QA agents",
+    body: "Rent an AI QA team by the hour. Four agents test your site across dev, staging, UAT and prod, then hand you the bug report.",
+    image: "/images/projects/testshift.png",
+    url: "https://testshift-eta.vercel.app/",
+  },
+  {
+    name: "Citable",
+    category: "AI search visibility",
+    body: "See your site the way AI search does. Scan any page to find which content AI crawlers can actually read, and which only appears after JavaScript.",
+    image: "/images/projects/citable.png",
+    url: "https://aeo-geo-seven.vercel.app/",
+  },
+];
+
 export default function Home() {
   return (
     <main id="main-content">
@@ -124,28 +141,28 @@ export default function Home() {
             <p className="eyebrow">Our products</p>
             <h2>Software we build and run ourselves.</h2>
           </Reveal>
-          <Reveal>
-            <a className="product-card" href="https://testshift-eta.vercel.app/" target="_blank" rel="noreferrer">
-              <div className="product-image">
-                <Image
-                  src="/images/projects/testshift.png"
-                  alt="Homepage of TestShift"
-                  fill
-                  sizes="(max-width: 780px) 94vw, 60vw"
-                />
-              </div>
-              <div className="product-copy">
-                <p className="project-category">AI QA agents</p>
-                <h3>Test Shift</h3>
-                <p>
-                  Rent an AI QA team by the hour. Four agents test your site across dev, staging, UAT and prod, then hand you the bug report.
-                </p>
-                <span className="text-link">
-                  Try Test Shift <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
-                </span>
-              </div>
-            </a>
-          </Reveal>
+          {products.map((product) => (
+            <Reveal key={product.name}>
+              <a className="product-card" href={product.url} target="_blank" rel="noreferrer">
+                <div className="product-image">
+                  <Image
+                    src={product.image}
+                    alt={`Homepage of ${product.name}`}
+                    fill
+                    sizes="(max-width: 780px) 94vw, 60vw"
+                  />
+                </div>
+                <div className="product-copy">
+                  <p className="project-category">{product.category}</p>
+                  <h3>{product.name}</h3>
+                  <p>{product.body}</p>
+                  <span className="text-link">
+                    Try {product.name} <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
+                  </span>
+                </div>
+              </a>
+            </Reveal>
+          ))}
         </div>
       </section>
 
