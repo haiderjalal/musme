@@ -67,6 +67,7 @@ export default function Home() {
         </a>
         <div className="nav-links">
           <a href="#projects">Projects</a>
+          <a href="#products">Products</a>
           <a href="#capabilities">Capabilities</a>
           <a href="#industries">Industries</a>
           <a href="#approach">Approach</a>
@@ -116,6 +117,37 @@ export default function Home() {
       </section>
 
       <ProjectsShowcase />
+
+      <section className="products section" id="products">
+        <div className="section-shell">
+          <Reveal className="section-intro">
+            <p className="eyebrow">Our products</p>
+            <h2>Software we build and run ourselves.</h2>
+          </Reveal>
+          <Reveal>
+            <a className="product-card" href="https://testshift-eta.vercel.app/" target="_blank" rel="noreferrer">
+              <div className="product-image">
+                <Image
+                  src="/images/projects/testshift.png"
+                  alt="Homepage of TestShift"
+                  fill
+                  sizes="(max-width: 780px) 94vw, 60vw"
+                />
+              </div>
+              <div className="product-copy">
+                <p className="project-category">AI QA agents</p>
+                <h3>Test Shift</h3>
+                <p>
+                  Rent an AI QA team by the hour. Four agents test your site across dev, staging, UAT and prod, then hand you the bug report.
+                </p>
+                <span className="text-link">
+                  Try Test Shift <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
+                </span>
+              </div>
+            </a>
+          </Reveal>
+        </div>
+      </section>
 
       <section className="capabilities section" id="capabilities">
         <div className="section-shell">
