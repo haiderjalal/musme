@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import type { Viewport } from "next";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -13,6 +14,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0b0d0b",
+  colorScheme: "dark",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://musme.ai"),
