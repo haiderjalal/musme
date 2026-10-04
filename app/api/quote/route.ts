@@ -87,15 +87,12 @@ export async function POST(request: Request) {
     services: services.map(escapeHtml).join(" · "),
   };
 
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-      "Idempotency-Key": `musme-quote-${crypto.randomUUID()}`,
-    },
-    body: JSON.stringify({
-      from: process.env.RESEND_FROM_EMAIL || "Musme Website <onboarding@resend.dev>",
+  const fallbackSender = "Musme Website <onboarding@resend.dev>";
+  const configuredSender = process.env.RESEND_FROM_EMAIL?.trim();
+  const preferredSender = configuredSender && !configuredSender.includes("your-verified-domain.com")
+    ? configuredSender
+    : fallbackSender;
+  const emailBody = {
       to: [RECIPIENT],
       reply_to: email,
       subject: `New Musme brief — ${name}${company ? ` / ${company}` : ""}`.replaceAll(/[\r\n]/g, " "),
@@ -120,13 +117,40 @@ export async function POST(request: Request) {
             </div>
           </div>
         </div>`,
-    }),
-  });
+  };
+
+  async function sendWith(sender: string) {
+    return fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+        "Idempotency-Key": `musme-quote-${crypto.randomUUID()}`,
+      },
+      body: JSON.stringify({ ...emailBody, from: sender }),
+    });
+  }
+
+  let response = await sendWith(preferredSender);
+  let errorText = response.ok ? "" : await response.text();
+
+  const senderWasRejected = /domain|sender|from address|verify|verified/i.test(errorText);
+  if (!response.ok && preferredSender !== fallbackSender && senderWasRejected) {
+    console.warn("Configured Resend sender was rejected; retrying with onboarding sender.");
+    response = await sendWith(fallbackSender);
+    errorText = response.ok ? "" : await response.text();
+  }
 
   if (!response.ok) {
-    const error = await response.text();
-    console.error("Resend error:", response.status, error);
-    return Response.json({ message: "We could not send your brief. Please try again." }, { status: 502 });
+    console.error("Resend error:", response.status, errorText);
+    const publicMessage = /testing emails|own email address|verify a domain/i.test(errorText)
+      ? "Resend is still in testing mode. Verify a sending domain, or send to the email used by your Resend account."
+      : /api key|unauthorized|invalid[_ ]?key/i.test(errorText)
+        ? "The email service credentials need to be updated."
+        : /domain|sender|from address|verify|verified/i.test(errorText)
+          ? "The sender domain is not verified in Resend."
+          : "We could not send your brief. Please try again.";
+    return Response.json({ message: publicMessage }, { status: 502 });
   }
 
   return Response.json({ ok: true });
