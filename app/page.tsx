@@ -17,6 +17,7 @@ import Image from "next/image";
 import { CapabilityStack } from "@/components/CapabilityStack";
 import { HeroScene } from "@/components/HeroScene";
 import { ProjectsShowcase } from "@/components/ProjectsShowcase";
+import { QuoteForm } from "@/components/QuoteForm";
 import { Reveal } from "@/components/Reveal";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { SectorStory } from "@/components/SectorStory";
@@ -89,7 +90,7 @@ export default function Home() {
           <a href="#industries">Industries</a>
           <a href="#approach">Approach</a>
         </div>
-        <a className="nav-cta" href="mailto:hello@musme.ai?subject=Start%20a%20project%20with%20Musme">
+        <a className="nav-cta" href="#quote">
           Start a project <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
         </a>
       </nav>
@@ -106,7 +107,7 @@ export default function Home() {
             We build AI systems, content, and digital products that do the repetitive work for you.
           </p>
           <div className="hero-actions">
-            <a className="button button-primary" href="mailto:hello@musme.ai?subject=Start%20a%20project%20with%20Musme">
+            <a className="button button-primary" href="#quote">
               Start a project <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
             </a>
             <a className="button button-secondary" href="#projects">
@@ -187,7 +188,7 @@ export default function Home() {
             <p>
               Every engagement starts close to the operation. We find the friction, design the right system, and improve it with real use.
             </p>
-            <a className="text-link" href="mailto:hello@musme.ai?subject=Start%20a%20project%20with%20Musme">
+            <a className="text-link" href="#quote">
               Start a project <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
             </a>
           </Reveal>
@@ -232,15 +233,20 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="final-cta section">
-        <div className="final-cta-orb" aria-hidden="true" />
-        <Reveal className="final-cta-copy">
-          <h2>Make the business feel lighter.</h2>
-          <p>Tell us what is taking too much time. We will show you what can move on its own.</p>
-          <a className="button button-primary" href="mailto:hello@musme.ai?subject=Start%20a%20project%20with%20Musme">
-            Start a project <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
-          </a>
-        </Reveal>
+      <section className="quote-section section" id="quote">
+        <div className="quote-ambient" aria-hidden="true"><span /><span /><span /></div>
+        <div className="section-shell quote-layout">
+          <Reveal className="quote-intro">
+            <p className="eyebrow">Request a quote</p>
+            <h2>Let&apos;s find the leverage.</h2>
+            <p>Answer four quick questions. We will turn the messy part of your operation into a clear first move.</p>
+            <div className="quote-promise">
+              <span>01</span>
+              <p>No generic proposal. A considered response within one business day.</p>
+            </div>
+          </Reveal>
+          <QuoteForm />
+        </div>
       </section>
 
       <footer className="site-footer">
