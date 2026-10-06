@@ -2,6 +2,8 @@
 
 > Musme builds AI systems, content, and digital products for owner-led businesses, especially in healthcare and restaurants. Last updated 2026-10-06.
 
+Author: Haider Jalal, Founder (https://linkedin.com/in/haiderjalal)
+
 Site: https://www.musme.co/ · Contact: hello@musme.ai
 
 ## What does Musme do?

@@ -107,7 +107,16 @@ const jsonLd = {
       email: "hello@musme.ai",
       description:
         "Musme builds AI systems, content, and digital products for owner-led businesses, especially in healthcare and restaurants.",
-      // sameAs: add Musme's LinkedIn / X / Instagram profile URLs here
+      sameAs: ["https://linkedin.com/in/haiderjalal", "https://instagram.com/haider.jalals"],
+      founder: { "@id": `${SITE}/#founder` },
+    },
+    {
+      "@type": "Person",
+      "@id": `${SITE}/#founder`,
+      name: "Haider Jalal",
+      jobTitle: "Founder",
+      worksFor: { "@id": `${SITE}/#organization` },
+      sameAs: ["https://linkedin.com/in/haiderjalal"],
     },
     {
       "@type": "WebSite",
@@ -123,7 +132,7 @@ const jsonLd = {
       name: "Musme | AI systems for ambitious businesses",
       isPartOf: { "@id": `${SITE}/#website` },
       about: { "@id": `${SITE}/#organization` },
-      author: { "@id": `${SITE}/#organization` },
+      author: { "@id": `${SITE}/#founder` },
       publisher: { "@id": `${SITE}/#organization` },
       dateModified: LAST_UPDATED,
     },
@@ -379,7 +388,7 @@ export default function Home() {
           <span className="brand-name">musme<span aria-hidden="true">.</span></span>
         </a>
         <p>
-          AI systems, content, and digital products. Written by the Musme team. Last updated{" "}
+          AI systems, content, and digital products. Written by Haider Jalal, Founder. Last updated{" "}
           <time dateTime={LAST_UPDATED}>6 October 2026</time>.
         </p>
         <a href="mailto:hello@musme.ai">hello@musme.ai</a>
