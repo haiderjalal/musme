@@ -6,5 +6,6 @@
 - [Full text version](https://www.musme.co/llms-full.txt): the whole site in one markdown file
 - [Test Shift](https://testshift.musme.co/): rent an AI QA team by the hour
 - [Citable](https://aeogeo.musme.co/): see which parts of a page AI search crawlers can read
+- [PDFDesk](https://pdfdesk.musme.co/): edit PDFs like a Word document
 
 Contact: hello@musme.ai

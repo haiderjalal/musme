@@ -64,6 +64,13 @@ const products = [
     image: "/images/projects/citable.png",
     url: "https://aeogeo.musme.co/",
   },
+  {
+    name: "PDFDesk",
+    category: "PDF tools",
+    body: "Edit PDFs like a Word document. Change text, add images and signatures, reorder pages, and convert between PDF and Word, free and with no account.",
+    image: "/images/projects/pdfdesk.png",
+    url: "https://pdfdesk.musme.co/",
+  },
 ];
 
 const SITE = "https://www.musme.co";
@@ -84,7 +91,7 @@ const faqs = [
   ],
   [
     "Does Musme have its own products?",
-    "Yes. Test Shift rents an AI QA team by the hour, with four agents testing your site across dev, staging, UAT, and prod. Citable scans a page to show which content AI search crawlers can read and which only appears after JavaScript. Both are listed in the products section.",
+    "Yes. Test Shift rents an AI QA team by the hour, with four agents testing your site across dev, staging, UAT, and prod. Citable shows which content AI search crawlers can read. PDFDesk edits PDFs like a Word document and converts between PDF and Word. All three are listed in the products section.",
   ],
 ];
 
