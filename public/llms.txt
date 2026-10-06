@@ -1,0 +1,10 @@
+# Musme
+
+> Musme builds AI systems, content, and digital products for owner-led businesses, especially in healthcare and restaurants.
+
+- [Musme home](https://www.musme.co/): services, selected work, products, and how a project works
+- [Full text version](https://www.musme.co/llms-full.txt): the whole site in one markdown file
+- [Test Shift](https://testshift.musme.co/): rent an AI QA team by the hour
+- [Citable](https://aeogeo.musme.co/): see which parts of a page AI search crawlers can read
+
+Contact: hello@musme.ai

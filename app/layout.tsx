@@ -15,10 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://musme.ai"),
+  metadataBase: new URL("https://www.musme.co"),
   title: "Musme | AI systems for ambitious businesses",
   description:
     "Musme designs AI automation, content systems, websites, apps, and custom software for healthcare, restaurants, and owner-led businesses.",
+  alternates: { canonical: "/" },
   openGraph: {
     title: "Musme | Less busywork. More business.",
     description:

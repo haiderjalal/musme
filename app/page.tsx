@@ -66,9 +66,86 @@ const products = [
   },
 ];
 
+const SITE = "https://www.musme.co";
+const LAST_UPDATED = "2026-10-06";
+
+const faqs = [
+  [
+    "Which industries does Musme work with?",
+    "Musme focuses on healthcare and restaurants, and works with owner-led businesses more broadly. In healthcare we design patient intake, reminders, follow-ups, documentation, and internal routing. In restaurants we build AI menus, booking flows, guest messaging, content, reviews, and back-office automations that work together as one experience.",
+  ],
+  [
+    "What can Musme build?",
+    "Musme builds AI automation and workflow systems, custom AI tools, AI video and image generation, content and social media systems, websites, apps, AI restaurant menus, portals, and custom software. Each engagement starts with your real operation, then combines the right mix of automation, content, and software.",
+  ],
+  [
+    "How does a Musme project start?",
+    "Every engagement starts close to the operation. We map the manual work, delays, and missed opportunities, design a focused system around your team and customers, then build, integrate, test, and launch it. After launch we use real feedback and performance to keep improving it. To begin, email hello@musme.ai.",
+  ],
+  [
+    "Does Musme have its own products?",
+    "Yes. Test Shift rents an AI QA team by the hour, with four agents testing your site across dev, staging, UAT, and prod. Citable scans a page to show which content AI search crawlers can read and which only appears after JavaScript. Both are listed in the products section.",
+  ],
+];
+
+const comparison = [
+  ["Automation", "Connects forms, inboxes, calls, records, follow-ups, and reports so routine work moves without being chased.", "Lead response, patient intake, bookings, reporting"],
+  ["AI content engine", "Turns strategy, scripts, video, imagery, and publishing into one managed system.", "AI video, image systems, content, social media"],
+  ["Digital products", "Fast websites, apps, AI menus, portals, and custom software with intelligence built in.", "Websites, apps, AI menus, custom software"],
+  ["Growth operations", "Captures what works, surfaces the next action, and improves the customer journey over time.", "CRM, retention, analytics, optimisation"],
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE}/#organization`,
+      name: "Musme",
+      url: `${SITE}/`,
+      logo: `${SITE}/images/musme-logo-mark.png`,
+      email: "hello@musme.ai",
+      description:
+        "Musme builds AI systems, content, and digital products for owner-led businesses, especially in healthcare and restaurants.",
+      // sameAs: add Musme's LinkedIn / X / Instagram profile URLs here
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE}/#website`,
+      url: `${SITE}/`,
+      name: "Musme",
+      publisher: { "@id": `${SITE}/#organization` },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${SITE}/#webpage`,
+      url: `${SITE}/`,
+      name: "Musme | AI systems for ambitious businesses",
+      isPartOf: { "@id": `${SITE}/#website` },
+      about: { "@id": `${SITE}/#organization` },
+      author: { "@id": `${SITE}/#organization` },
+      publisher: { "@id": `${SITE}/#organization` },
+      dateModified: LAST_UPDATED,
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${SITE}/#faq`,
+      mainEntity: faqs.map(([q, a]) => ({
+        "@type": "Question",
+        name: q,
+        acceptedAnswer: { "@type": "Answer", text: a },
+      })),
+    },
+  ],
+};
+
 export default function Home() {
   return (
     <main id="main-content">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       <a className="skip-link" href="#projects">Skip to selected work</a>
       <ScrollProgress />
       <nav className="site-nav" aria-label="Primary navigation">
@@ -233,6 +310,47 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="answers section" id="answers">
+        <div className="section-shell answers-shell">
+          <h2>What does Musme do?</h2>
+          <p className="answer-lead">
+            Musme builds AI systems, content, and digital products for owner-led businesses, especially in healthcare and restaurants. We automate repetitive work such as lead response, patient intake, bookings, and reporting, produce AI video and imagery, and design websites, apps, and AI menus, so your team spends less time on busywork and more on customers.
+          </p>
+
+          <h2>Which Musme service solves which problem?</h2>
+          <div className="answer-table-wrap">
+            <table className="answer-table">
+              <thead>
+                <tr><th>Service</th><th>What it does</th><th>Typical use</th></tr>
+              </thead>
+              <tbody>
+                {comparison.map(([service, what, use]) => (
+                  <tr key={service}><th scope="row">{service}</th><td>{what}</td><td>{use}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <h2>How does a Musme project work?</h2>
+          <ol className="answer-steps">
+            <li><strong>Observe:</strong> map the manual work, delays, and missed opportunities.</li>
+            <li><strong>Design:</strong> shape a focused system around your team and customers.</li>
+            <li><strong>Connect:</strong> build, integrate, test, and launch without operational chaos.</li>
+            <li><strong>Improve:</strong> use real feedback and performance to make the system sharper.</li>
+          </ol>
+
+          <h2>Frequently asked questions</h2>
+          <div className="faq-list">
+            {faqs.map(([q, a]) => (
+              <div key={q}>
+                <h3>{q}</h3>
+                <p>{a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="quote-section section" id="quote">
         <div className="quote-ambient" aria-hidden="true"><span /><span /><span /></div>
         <div className="section-shell quote-layout">
@@ -260,7 +378,10 @@ export default function Home() {
           />
           <span className="brand-name">musme<span aria-hidden="true">.</span></span>
         </a>
-        <p>AI systems, content, and digital products.</p>
+        <p>
+          AI systems, content, and digital products. Written by the Musme team. Last updated{" "}
+          <time dateTime={LAST_UPDATED}>6 October 2026</time>.
+        </p>
         <a href="mailto:hello@musme.ai">hello@musme.ai</a>
       </footer>
     </main>
