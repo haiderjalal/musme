@@ -62,7 +62,7 @@ const products = [
     category: "AI search visibility",
     body: "See your site the way AI search does. Scan any page to find which content AI crawlers can actually read, and which only appears after JavaScript.",
     image: "/images/projects/citable.png",
-    url: "https://aeo-geo-seven.vercel.app/",
+    url: "https://aeogeo.musme.co/",
   },
 ];
 
