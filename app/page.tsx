@@ -55,7 +55,7 @@ const products = [
     category: "AI QA agents",
     body: "Rent an AI QA team by the hour. Four agents test your site across dev, staging, UAT and prod, then hand you the bug report.",
     image: "/images/projects/testshift.png",
-    url: "https://testshift-eta.vercel.app/",
+    url: "https://testshift.musme.co/",
   },
   {
     name: "Citable",
