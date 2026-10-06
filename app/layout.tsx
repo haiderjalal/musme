@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { DM_Serif_Display, Geist_Mono, Outfit } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const geist = Geist({
-  variable: "--font-geist",
+const outfit = Outfit({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const serif = DM_Serif_Display({
+  variable: "--font-serif",
+  weight: "400",
+  style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -33,7 +41,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${serif.variable} ${geistMono.variable}`}>
       <body>
         {children}
         <Script

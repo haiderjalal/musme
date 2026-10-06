@@ -1,51 +1,39 @@
-import {
-  ArrowDown,
-  ArrowUpRight,
-  Check,
-  CirclesThreePlus,
-  DeviceMobile,
-  ForkKnife,
-  Heartbeat,
-  Images,
-  Lightning,
-  Megaphone,
-  Monitor,
-  Robot,
-  VideoCamera,
-} from "@phosphor-icons/react/dist/ssr";
+import { ArrowDownRight, ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
-import { CapabilityStack } from "@/components/CapabilityStack";
-import { HeroScene } from "@/components/HeroScene";
-import { ProjectsShowcase } from "@/components/ProjectsShowcase";
 import { QuoteForm } from "@/components/QuoteForm";
 import { Reveal } from "@/components/Reveal";
 import { ScrollProgress } from "@/components/ScrollProgress";
-import { SectorStory } from "@/components/SectorStory";
+import { ServicesList } from "@/components/ServicesList";
+import { SiteNav } from "@/components/SiteNav";
 
-const serviceGroups = [
+const projects = [
   {
-    title: "Intelligence",
-    items: [
-      [Robot, "AI automation"],
-      [Lightning, "Workflow systems"],
-      [CirclesThreePlus, "Custom AI tools"],
-    ],
+    name: "Pak Tribal Furniture",
+    category: "Furniture catalogue",
+    body: "A product-led catalogue for solid-wood furniture, custom enquiries, and Pakistani craft.",
+    image: "/images/projects/pak-tribal-furniture.png",
+    url: "http://paktribalfurniture.com/",
   },
   {
-    title: "Content",
-    items: [
-      [VideoCamera, "AI video generation"],
-      [Images, "Image generation"],
-      [Megaphone, "Content and social"],
-    ],
+    name: "OptiSource PK",
+    category: "B2B optical supply",
+    body: "A wholesale catalogue and trade-inquiry system for lenses, frames, lab supplies, and equipment.",
+    image: "/images/projects/optisource-pk.png",
+    url: "https://www.optisourcepk.com/",
   },
   {
-    title: "Products",
-    items: [
-      [Monitor, "Website development"],
-      [DeviceMobile, "App development"],
-      [ForkKnife, "AI restaurant menus"],
-    ],
+    name: "Divers Optics",
+    category: "Retail and discovery",
+    body: "A visual retail experience for eyewear and accessories, designed around discovery and WhatsApp conversion.",
+    image: "/images/projects/divers-optics.png",
+    url: "https://www.diversoptics.com/",
+  },
+  {
+    name: "Bubish Artificer",
+    category: "Landscape and interiors",
+    body: "An immersive studio site for landscape, irrigation, and interiors with a patient brand narrative.",
+    image: "/images/projects/bubish.png",
+    url: "https://bubish.vercel.app/",
   },
 ];
 
@@ -54,24 +42,42 @@ const products = [
     name: "Test Shift",
     category: "AI QA agents",
     body: "Rent an AI QA team by the hour. Four agents test your site across dev, staging, UAT and prod, then hand you the bug report.",
-    image: "/images/projects/testshift.png",
     url: "https://testshift.musme.co/",
   },
   {
     name: "Citable",
     category: "AI search visibility",
     body: "See your site the way AI search does. Scan any page to find which content AI crawlers can actually read, and which only appears after JavaScript.",
-    image: "/images/projects/citable.png",
     url: "https://aeogeo.musme.co/",
   },
   {
     name: "PDFDesk",
     category: "PDF tools",
     body: "Edit PDFs like a Word document. Change text, add images and signatures, reorder pages, and convert between PDF and Word, free and with no account.",
-    image: "/images/projects/pdfdesk.png",
     url: "https://pdfdesk.musme.co/",
   },
 ];
+
+const steps = [
+  ["Observe", "Map the manual work, delays, and missed opportunities."],
+  ["Design", "Shape a focused system around your team and customers."],
+  ["Connect", "Build, integrate, test, and launch without operational chaos."],
+  ["Improve", "Use real feedback and performance to make the system sharper."],
+];
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return <p className="section-label">{children}</p>;
+}
+
+function OutlineMarquee({ text }: { text: string }) {
+  return (
+    <div className="outline-marquee" aria-hidden="true">
+      <div className="outline-track">
+        {[0, 1, 2, 3].map((i) => <span key={i}>{text}</span>)}
+      </div>
+    </div>
+  );
+}
 
 const SITE = "https://www.musme.co";
 const LAST_UPDATED = "2026-10-06";
@@ -162,244 +168,225 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
-      <a className="skip-link" href="#projects">Skip to selected work</a>
+      <a className="skip-link" href="#work">Skip to selected work</a>
       <ScrollProgress />
-      <nav className="site-nav" aria-label="Primary navigation">
-        <a className="brand" href="#top" aria-label="Musme home">
-          <Image
-            className="brand-mark"
-            src="/images/musme-logo-mark.png"
-            alt=""
-            width={44}
-            height={32}
-            priority
-          />
-          <span className="brand-name">musme<span aria-hidden="true">.</span></span>
-        </a>
-        <div className="nav-links">
-          <a href="#projects">Projects</a>
-          <a href="#products">Products</a>
-          <a href="#capabilities">Capabilities</a>
-          <a href="#industries">Industries</a>
-          <a href="#approach">Approach</a>
-        </div>
-        <a className="nav-cta" href="#quote">
-          Start a project <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
-        </a>
-      </nav>
+      <SiteNav />
 
       <section className="hero" id="top">
         <div className="hero-copy">
-          <p className="eyebrow">AI systems for ambitious businesses</p>
+          <p className="hello"><span aria-hidden="true" />Hi there!</p>
           <h1>
             Less busywork.
             <br />
-            More <em>business.</em>
+            More <span className="accent">business.</span>
           </h1>
           <p className="hero-sub">
             We build AI systems, content, and digital products that do the repetitive work for you.
           </p>
-          <div className="hero-actions">
-            <a className="button button-primary" href="#quote">
-              Start a project <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
-            </a>
-            <a className="button button-secondary" href="#projects">
-              View selected work <ArrowDown size={17} weight="bold" aria-hidden="true" />
-            </a>
-          </div>
         </div>
-        <HeroScene />
-      </section>
-
-      <section className="friction section" aria-label="Common operational friction">
-        <Reveal className="friction-heading">
-          <Heartbeat size={28} weight="light" aria-hidden="true" />
-          <h2>Your team is doing work software should handle.</h2>
-        </Reveal>
-        <div className="marquee" aria-label="Examples of work that can be automated">
-          <div className="marquee-track">
-            {[...Array(2)].flatMap((_, loop) =>
-              ["Lead response", "Patient intake", "Bookings", "Follow-ups", "Content production", "Menu updates", "Reporting", "Review management"].map((item) => (
-                <span key={`${loop}-${item}`}>{item}</span>
-              )),
-            )}
-          </div>
+        <a className="circle-link hero-circle" href="#work" aria-label="See selected work">
+          <ArrowDownRight size={30} weight="light" aria-hidden="true" />
+        </a>
+        <div className="hero-media">
+          <Image
+            src="/images/musme-sectors-brand.png"
+            alt="A modern healthcare clinic and restaurant connected by a flowing system"
+            fill
+            priority
+            sizes="(max-width: 780px) 100vw, 72vw"
+          />
         </div>
       </section>
 
-      <ProjectsShowcase />
-
-      <section className="products section" id="products">
-        <div className="section-shell">
-          <Reveal className="section-intro">
-            <p className="eyebrow">Our products</p>
-            <h2>Software we build and run ourselves.</h2>
-          </Reveal>
-          {products.map((product) => (
-            <Reveal key={product.name}>
-              <a className="product-card" href={product.url} target="_blank" rel="noreferrer">
-                <div className="product-image">
-                  <Image
-                    src={product.image}
-                    alt={`Homepage of ${product.name}`}
-                    fill
-                    sizes="(max-width: 780px) 94vw, 60vw"
-                  />
-                </div>
-                <div className="product-copy">
-                  <p className="project-category">{product.category}</p>
-                  <h3>{product.name}</h3>
-                  <p>{product.body}</p>
-                  <span className="text-link">
-                    Try {product.name} <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
-                  </span>
-                </div>
-              </a>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="capabilities section" id="capabilities">
-        <div className="section-shell">
-          <Reveal className="section-intro capabilities-intro">
-            <h2>One partner. The whole intelligent layer.</h2>
-            <p>
-              Strategy, systems, and execution stay connected, so every part of the business compounds the next.
+      <section className="formula section" id="about">
+        <div className="shell-indent">
+          <SectionLabel>Our formula</SectionLabel>
+          <Reveal>
+            <p className="statement">
+              We automate <em>the work</em>, not the relationship. Every engagement starts <em>close to the operation</em>: we find the friction, <em>design the right system</em>, and improve it with <em>real use</em>.
             </p>
+            <a className="arrow-link" href="#quote">
+              Start a project
+              <span className="arrow-ring"><ArrowRight size={20} weight="light" aria-hidden="true" /></span>
+            </a>
           </Reveal>
-          <CapabilityStack />
         </div>
       </section>
 
-      <SectorStory />
+      <section className="services section" id="services">
+        <div className="shell-indent">
+          <h2 className="section-label">What we do</h2>
+        </div>
+        <ServicesList />
+      </section>
 
-      <section className="approach section" id="approach">
-        <div className="section-shell approach-grid">
-          <Reveal className="approach-copy">
-            <h2>We automate the work, not the relationship.</h2>
-            <p>
-              Every engagement starts close to the operation. We find the friction, design the right system, and improve it with real use.
-            </p>
-            <a className="text-link" href="#quote">
-              Start a project <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
-            </a>
-          </Reveal>
-
-          <div className="process-list">
-            {[
-              ["Observe", "Map the manual work, delays, and missed opportunities."],
-              ["Design", "Shape a focused system around your team and customers."],
-              ["Connect", "Build, integrate, test, and launch without operational chaos."],
-              ["Improve", "Use real feedback and performance to make the system sharper."],
-            ].map(([title, body], index) => (
-              <Reveal className="process-item" delay={index * 0.07} key={title}>
-                <div className="process-check"><Check size={16} weight="bold" aria-hidden="true" /></div>
-                <div>
-                  <h3>{title}</h3>
-                  <p>{body}</p>
-                </div>
+      <section className="work section" id="work">
+        <div className="shell-indent">
+          <h2 className="section-label">Selected work</h2>
+        </div>
+        <div className="work-head">
+          <OutlineMarquee text="selected work ·" />
+          <a className="circle-link work-circle" href="#quote" aria-label="Start a project">
+            <ArrowDownRight size={34} weight="light" aria-hidden="true" />
+          </a>
+        </div>
+        <div className="section-shell">
+          <div className="work-grid">
+            {projects.map((project, index) => (
+              <Reveal className="work-card" key={project.name} delay={(index % 2) * 0.08}>
+                <a href={project.url} target="_blank" rel="noreferrer">
+                  <div className="work-image">
+                    <Image src={project.image} alt={`Homepage of ${project.name}`} fill sizes="(max-width: 780px) 94vw, 46vw" />
+                  </div>
+                  <p className="work-category">{project.category}</p>
+                  <h3>{project.name}</h3>
+                  <p className="work-body">{project.body}</p>
+                </a>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="service-index section" aria-labelledby="service-index-title">
-        <div className="section-shell">
-          <Reveal className="service-index-heading">
-            <h2 id="service-index-title">What Musme can build.</h2>
-          </Reveal>
-          <div className="service-groups">
-            {serviceGroups.map((group) => (
-              <div className="service-group" key={group.title}>
-                <h3>{group.title}</h3>
-                {group.items.map(([Icon, label]) => (
-                  <div className="service-item" key={label as string}>
-                    <Icon size={22} weight="light" aria-hidden="true" />
-                    <span>{label as string}</span>
-                  </div>
-                ))}
-              </div>
+      <section className="products section" id="products">
+        <div className="shell-indent">
+          <SectionLabel>Our products</SectionLabel>
+          <h2 className="products-title">Software we build and run ourselves.</h2>
+          <ul className="product-list">
+            {products.map((product) => (
+              <li key={product.name}>
+                <a href={product.url} target="_blank" rel="noreferrer">
+                  <span className="product-name">
+                    {product.name}
+                    <span className="product-slash" aria-hidden="true" />
+                  </span>
+                  <span className="product-meta">
+                    <span className="work-category">{product.category}</span>
+                    {product.body}
+                  </span>
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      <section className="answers section" id="answers">
-        <div className="section-shell answers-shell">
-          <h2>What does Musme do?</h2>
-          <p className="answer-lead">
-            Musme builds AI systems, content, and digital products for owner-led businesses, especially in healthcare and restaurants. We automate repetitive work such as lead response, patient intake, bookings, and reporting, produce AI video and imagery, and design websites, apps, and AI menus, so your team spends less time on busywork and more on customers.
-          </p>
-
-          <h2>Which Musme service solves which problem?</h2>
-          <div className="answer-table-wrap">
-            <table className="answer-table">
-              <thead>
-                <tr><th>Service</th><th>What it does</th><th>Typical use</th></tr>
-              </thead>
-              <tbody>
-                {comparison.map(([service, what, use]) => (
-                  <tr key={service}><th scope="row">{service}</th><td>{what}</td><td>{use}</td></tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <h2>How does a Musme project work?</h2>
-          <ol className="answer-steps">
-            <li><strong>Observe:</strong> map the manual work, delays, and missed opportunities.</li>
-            <li><strong>Design:</strong> shape a focused system around your team and customers.</li>
-            <li><strong>Connect:</strong> build, integrate, test, and launch without operational chaos.</li>
-            <li><strong>Improve:</strong> use real feedback and performance to make the system sharper.</li>
-          </ol>
-
-          <h2>Frequently asked questions</h2>
-          <div className="faq-list">
-            {faqs.map(([q, a]) => (
-              <div key={q}>
-                <h3>{q}</h3>
-                <p>{a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="quote-section section" id="quote">
-        <div className="quote-ambient" aria-hidden="true"><span /><span /><span /></div>
-        <div className="section-shell quote-layout">
-          <Reveal className="quote-intro">
-            <p className="eyebrow">Request a quote</p>
-            <h2>Let&apos;s find the leverage.</h2>
-            <p>Answer four quick questions. We will turn the messy part of your operation into a clear first move.</p>
-            <div className="quote-promise">
-              <span>01</span>
-              <p>No generic proposal. A considered response within one business day.</p>
+      <div className="light">
+        <section className="industries section" id="industries">
+          <div className="shell-indent industries-grid">
+            <Reveal>
+              <SectionLabel>Who we build for</SectionLabel>
+              <h2>Built for businesses where every minute matters.</h2>
+              <p className="lead-dark">
+                Musme starts with the real operation, then chooses the right mix of automation, content, and software.
+              </p>
+              <a className="arrow-link" href="#quote">
+                Tell us about yours
+                <span className="arrow-ring"><ArrowRight size={20} weight="light" aria-hidden="true" /></span>
+              </a>
+            </Reveal>
+            <div className="industry-notes">
+              <article>
+                <h3>Healthcare</h3>
+                <p>More time for care. Patient intake, reminders, follow-ups, documentation, and internal routing designed to reduce admin without losing the human touch.</p>
+              </article>
+              <article>
+                <h3>Restaurants</h3>
+                <p>Service that starts before the table. AI menus, booking flows, guest messaging, content, reviews, and back-office automations working as one experience.</p>
+              </article>
             </div>
-          </Reveal>
-          <QuoteForm />
-        </div>
-      </section>
+          </div>
+        </section>
 
-      <footer className="site-footer">
-        <a className="brand" href="#top" aria-label="Musme home">
-          <Image
-            className="brand-mark"
-            src="/images/musme-logo-mark.png"
-            alt=""
-            width={52}
-            height={38}
-          />
-          <span className="brand-name">musme<span aria-hidden="true">.</span></span>
-        </a>
-        <p>
-          AI systems, content, and digital products. Written by Haider Jalal, Founder. Last updated{" "}
-          <time dateTime={LAST_UPDATED}>6 October 2026</time>.
-        </p>
-        <a href="mailto:hello@musme.ai">hello@musme.ai</a>
-      </footer>
+        <section className="process section" id="process">
+          <div className="shell-indent">
+            <SectionLabel>Process</SectionLabel>
+            <h2>How does a Musme project work?</h2>
+            <ol className="process-rows">
+              {steps.map(([title, body], index) => (
+                <li key={title}>
+                  <span className="process-num">{String(index + 1).padStart(2, "0")}</span>
+                  <strong>{title}</strong>
+                  <span>{body}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section className="answers section" id="faq">
+          <div className="shell-indent answers-shell">
+            <SectionLabel>Answers</SectionLabel>
+            <h2>What does Musme do?</h2>
+            <p className="lead-dark">
+              Musme builds AI systems, content, and digital products for owner-led businesses, especially in healthcare and restaurants. We automate repetitive work such as lead response, patient intake, bookings, and reporting, produce AI video and imagery, and design websites, apps, and AI menus, so your team spends less time on busywork and more on customers.
+            </p>
+
+            <h2>Which Musme service solves which problem?</h2>
+            <div className="answer-table-wrap">
+              <table className="answer-table">
+                <thead>
+                  <tr><th>Service</th><th>What it does</th><th>Typical use</th></tr>
+                </thead>
+                <tbody>
+                  {comparison.map(([service, what, use]) => (
+                    <tr key={service}><th scope="row">{service}</th><td>{what}</td><td>{use}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <h2>Frequently asked questions</h2>
+            <div className="faq-list">
+              {faqs.map(([q, a]) => (
+                <div key={q}>
+                  <h3>{q}</h3>
+                  <p>{a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <OutlineMarquee text="enough of the busywork ·" />
+
+        <section className="contact" id="quote">
+          <div className="contact-flank" aria-hidden="true">
+            <span>Let&apos;s build</span>
+            <i />
+            <Image src="/images/musme-logo-mark.png" alt="" width={56} height={41} />
+            <i />
+            <span>together!</span>
+          </div>
+          <div className="contact-card">
+            <div className="quote-layout">
+              <Reveal className="quote-intro">
+                <SectionLabel>Request a quote</SectionLabel>
+                <h2>Let&apos;s find the leverage.</h2>
+                <p>Answer four quick questions. We will turn the messy part of your operation into a clear first move.</p>
+                <a className="drop-line" href="mailto:hello@musme.ai">or drop us a line</a>
+              </Reveal>
+              <QuoteForm />
+            </div>
+          </div>
+        </section>
+
+        <footer className="site-footer">
+          <a className="brand" href="#top" aria-label="Musme home">
+            <Image className="brand-mark" src="/images/musme-logo-mark.png" alt="" width={40} height={29} />
+            <span className="brand-name">musme</span>
+          </a>
+          <nav className="footer-links" aria-label="Social">
+            <a href="https://linkedin.com/in/haiderjalal" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://instagram.com/haider.jalals" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="mailto:hello@musme.ai">hello@musme.ai</a>
+          </nav>
+          <p>
+            Written by Haider Jalal, Founder. Last updated{" "}
+            <time dateTime={LAST_UPDATED}>6 October 2026</time>. ©2026 Musme.
+          </p>
+        </footer>
+      </div>
     </main>
   );
 }
