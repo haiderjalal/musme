@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   description:
     "Musme designs AI automation, content systems, websites, apps, and custom software for healthcare, restaurants, and owner-led businesses.",
   alternates: { canonical: "/" },
+  other: { "google-adsense-account": "ca-pub-4555492337139581" },
   openGraph: {
     title: "Musme | Less busywork. More business.",
     description:
