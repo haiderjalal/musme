@@ -1,7 +1,8 @@
-import { ArrowDownRight, ArrowRight, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowDownRight, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import { QuoteForm } from "@/components/QuoteForm";
 import { Reveal } from "@/components/Reveal";
+import { ScrollParallax } from "@/components/ScrollParallax";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ServicesList } from "@/components/ServicesList";
 import { SiteNav } from "@/components/SiteNav";
@@ -173,7 +174,7 @@ export default function Home() {
       <SiteNav />
 
       <section className="hero" id="top">
-        <div className="hero-copy">
+        <Reveal className="hero-copy" direction="left" amount={0.08}>
           <p className="hello"><span aria-hidden="true" />Hi there!</p>
           <h1>
             Less busywork.
@@ -183,11 +184,11 @@ export default function Home() {
           <p className="hero-sub">
             We build AI systems, content, and digital products that do the repetitive work for you.
           </p>
-        </div>
+        </Reveal>
         <a className="circle-link hero-circle" href="#work" aria-label="See selected work">
           <ArrowDownRight size={30} weight="light" aria-hidden="true" />
         </a>
-        <div className="hero-media">
+        <ScrollParallax className="hero-media" distance={42}>
           <Image
             src="/images/musme-sectors-brand.png"
             alt="A modern healthcare clinic and restaurant connected by a flowing system"
@@ -195,13 +196,13 @@ export default function Home() {
             priority
             sizes="(max-width: 780px) 100vw, 72vw"
           />
-        </div>
+        </ScrollParallax>
       </section>
 
       <section className="formula section" id="about">
         <div className="shell-indent">
-          <SectionLabel>Our formula</SectionLabel>
-          <Reveal>
+          <Reveal direction="left"><SectionLabel>Our formula</SectionLabel></Reveal>
+          <Reveal delay={0.08}>
             <p className="statement">
               We automate <em>the work</em>, not the relationship. Every engagement starts <em>close to the operation</em>: we find the friction, <em>design the right system</em>, and improve it with <em>real use</em>.
             </p>
@@ -215,25 +216,31 @@ export default function Home() {
 
       <section className="services section" id="services">
         <div className="shell-indent">
-          <h2 className="section-label">What we do</h2>
+          <Reveal direction="left"><h2 className="section-label">What we do</h2></Reveal>
         </div>
         <ServicesList />
       </section>
 
       <section className="work section" id="work">
         <div className="shell-indent">
-          <h2 className="section-label">Selected work</h2>
+          <Reveal direction="left"><h2 className="section-label">Selected work</h2></Reveal>
         </div>
-        <div className="work-head">
+        <Reveal className="work-head" direction="scale" amount={0.08}>
           <OutlineMarquee text="selected work ·" />
           <a className="circle-link work-circle" href="#quote" aria-label="Start a project">
             <ArrowDownRight size={34} weight="light" aria-hidden="true" />
           </a>
-        </div>
+        </Reveal>
         <div className="section-shell">
           <div className="work-grid">
             {projects.map((project, index) => (
-              <Reveal className="work-card" key={project.name} delay={(index % 2) * 0.08}>
+              <Reveal
+                className="work-card"
+                key={project.name}
+                delay={(index % 2) * 0.08}
+                direction={index % 2 === 0 ? "left" : "right"}
+                amount={0.12}
+              >
                 <a href={project.url} target="_blank" rel="noreferrer">
                   <div className="work-image">
                     <Image src={project.image} alt={`Homepage of ${project.name}`} fill sizes="(max-width: 780px) 94vw, 46vw" />
@@ -250,11 +257,11 @@ export default function Home() {
 
       <section className="products section" id="products">
         <div className="shell-indent">
-          <SectionLabel>Our products</SectionLabel>
-          <h2 className="products-title">Software we build and run ourselves.</h2>
+          <Reveal direction="left"><SectionLabel>Our products</SectionLabel></Reveal>
+          <Reveal delay={0.06}><h2 className="products-title">Software we build and run ourselves.</h2></Reveal>
           <ul className="product-list">
-            {products.map((product) => (
-              <li key={product.name}>
+            {products.map((product, index) => (
+              <Reveal as="li" key={product.name} direction="left" delay={index * 0.07} amount={0.3}>
                 <a href={product.url} target="_blank" rel="noreferrer">
                   <span className="product-name">
                     {product.name}
@@ -265,7 +272,7 @@ export default function Home() {
                     {product.body}
                   </span>
                 </a>
-              </li>
+              </Reveal>
             ))}
           </ul>
         </div>
@@ -274,7 +281,7 @@ export default function Home() {
       <div className="light">
         <section className="industries section" id="industries">
           <div className="shell-indent industries-grid">
-            <Reveal>
+            <Reveal direction="left">
               <SectionLabel>Who we build for</SectionLabel>
               <h2>Built for businesses where every minute matters.</h2>
               <p className="lead-dark">
@@ -286,29 +293,29 @@ export default function Home() {
               </a>
             </Reveal>
             <div className="industry-notes">
-              <article>
+              <Reveal as="article" direction="right" delay={0.08}>
                 <h3>Healthcare</h3>
                 <p>More time for care. Patient intake, reminders, follow-ups, documentation, and internal routing designed to reduce admin without losing the human touch.</p>
-              </article>
-              <article>
+              </Reveal>
+              <Reveal as="article" direction="right" delay={0.16}>
                 <h3>Restaurants</h3>
                 <p>Service that starts before the table. AI menus, booking flows, guest messaging, content, reviews, and back-office automations working as one experience.</p>
-              </article>
+              </Reveal>
             </div>
           </div>
         </section>
 
         <section className="process section" id="process">
           <div className="shell-indent">
-            <SectionLabel>Process</SectionLabel>
-            <h2>How does a Musme project work?</h2>
+            <Reveal direction="left"><SectionLabel>Process</SectionLabel></Reveal>
+            <Reveal delay={0.06}><h2>How does a Musme project work?</h2></Reveal>
             <ol className="process-rows">
               {steps.map(([title, body], index) => (
-                <li key={title}>
+                <Reveal as="li" key={title} direction="left" delay={index * 0.06} amount={0.45}>
                   <span className="process-num">{String(index + 1).padStart(2, "0")}</span>
                   <strong>{title}</strong>
                   <span>{body}</span>
-                </li>
+                </Reveal>
               ))}
             </ol>
           </div>
@@ -316,15 +323,18 @@ export default function Home() {
 
         <section className="answers section" id="faq">
           <div className="shell-indent answers-shell">
-            <SectionLabel>Answers</SectionLabel>
-            <h2>What does Musme do?</h2>
-            <p className="lead-dark">
-              Musme builds AI systems, content, and digital products for owner-led businesses, especially in healthcare and restaurants. We automate repetitive work such as lead response, patient intake, bookings, and reporting, produce AI video and imagery, and design websites, apps, and AI menus, so your team spends less time on busywork and more on customers.
-            </p>
+            <Reveal direction="left">
+              <SectionLabel>Answers</SectionLabel>
+              <h2>What does Musme do?</h2>
+              <p className="lead-dark">
+                Musme builds AI systems, content, and digital products for owner-led businesses, especially in healthcare and restaurants. We automate repetitive work such as lead response, patient intake, bookings, and reporting, produce AI video and imagery, and design websites, apps, and AI menus, so your team spends less time on busywork and more on customers.
+              </p>
+            </Reveal>
 
-            <h2>Which Musme service solves which problem?</h2>
-            <div className="answer-table-wrap">
-              <table className="answer-table">
+            <Reveal delay={0.06}>
+              <h2>Which Musme service solves which problem?</h2>
+              <div className="answer-table-wrap">
+                <table className="answer-table">
                 <thead>
                   <tr><th>Service</th><th>What it does</th><th>Typical use</th></tr>
                 </thead>
@@ -333,32 +343,35 @@ export default function Home() {
                     <tr key={service}><th scope="row">{service}</th><td>{what}</td><td>{use}</td></tr>
                   ))}
                 </tbody>
-              </table>
-            </div>
+                </table>
+              </div>
+            </Reveal>
 
-            <h2>Frequently asked questions</h2>
-            <div className="faq-list">
-              {faqs.map(([q, a]) => (
-                <div key={q}>
-                  <h3>{q}</h3>
-                  <p>{a}</p>
-                </div>
-              ))}
-            </div>
+            <Reveal delay={0.06}>
+              <h2>Frequently asked questions</h2>
+              <div className="faq-list">
+                {faqs.map(([q, a]) => (
+                  <div key={q}>
+                    <h3>{q}</h3>
+                    <p>{a}</p>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
           </div>
         </section>
 
         <OutlineMarquee text="enough of the busywork ·" />
 
         <section className="contact" id="quote">
-          <div className="contact-flank" aria-hidden="true">
+          <Reveal className="contact-flank" direction="scale" amount={0.5}>
             <span>Let&apos;s build</span>
             <i />
             <Image src="/images/musme-logo-mark.png" alt="" width={56} height={41} />
             <i />
             <span>together!</span>
-          </div>
-          <div className="contact-card">
+          </Reveal>
+          <Reveal className="contact-card" direction="scale" amount={0.08}>
             <div className="quote-layout">
               <Reveal className="quote-intro">
                 <SectionLabel>Request a quote</SectionLabel>
@@ -368,10 +381,10 @@ export default function Home() {
               </Reveal>
               <QuoteForm />
             </div>
-          </div>
+          </Reveal>
         </section>
 
-        <footer className="site-footer">
+        <Reveal as="footer" className="site-footer" amount={0.35}>
           <a className="brand" href="#top" aria-label="Musme home">
             <Image className="brand-mark" src="/images/musme-logo-mark.png" alt="" width={40} height={29} />
             <span className="brand-name">musme</span>
@@ -385,7 +398,7 @@ export default function Home() {
             Written by Haider Jalal, Founder. Last updated{" "}
             <time dateTime={LAST_UPDATED}>6 October 2026</time>. ©2026 Musme.
           </p>
-        </footer>
+        </Reveal>
       </div>
     </main>
   );

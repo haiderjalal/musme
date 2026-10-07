@@ -1,7 +1,7 @@
 "use client";
 
 import { CaretRight } from "@phosphor-icons/react";
-import { useInView } from "motion/react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 const services = [
@@ -39,6 +39,7 @@ function ServiceItem({
   onActive: (index: number) => void;
 }) {
   const ref = useRef<HTMLLIElement>(null);
+  const reduce = useReducedMotion();
   const inView = useInView(ref, { margin: "-45% 0px -45% 0px" });
 
   useEffect(() => {
@@ -46,7 +47,14 @@ function ServiceItem({
   }, [inView, index, onActive]);
 
   return (
-    <li ref={ref} className={`service-row${active ? " is-active" : ""}`}>
+    <motion.li
+      ref={ref}
+      className={`service-row${active ? " is-active" : ""}`}
+      initial={{ opacity: 0, transform: reduce ? "translate3d(0, 0, 0)" : "translate3d(-34px, 0, 0)" }}
+      whileInView={{ opacity: 1, transform: "translate3d(0, 0, 0)" }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.7, delay: index * 0.06, ease: [0.23, 1, 0.32, 1] }}
+    >
       <span className="service-num">{String(index + 1).padStart(2, "0")}</span>
       <div>
         <h3>{service.title}</h3>
@@ -57,12 +65,13 @@ function ServiceItem({
           ))}
         </ul>
       </div>
-    </li>
+    </motion.li>
   );
 }
 
 export function ServicesList() {
   const [active, setActive] = useState(0);
+  const reduce = useReducedMotion();
 
   return (
     <div className="services-layout">
@@ -77,13 +86,26 @@ export function ServicesList() {
           />
         ))}
       </ol>
-      <div className="services-panel" aria-hidden="true">
-        <ul className="service-tags" key={active}>
+      <motion.div
+        className="services-panel"
+        aria-hidden="true"
+        initial={{ opacity: 0, transform: reduce ? "translate3d(0, 0, 0)" : "translate3d(34px, 0, 0)" }}
+        whileInView={{ opacity: 1, transform: "translate3d(0, 0, 0)" }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
+      >
+        <motion.ul
+          className="service-tags"
+          key={active}
+          initial={{ opacity: 0, transform: reduce ? "translate3d(0, 0, 0)" : "translate3d(0, 10px, 0)" }}
+          animate={{ opacity: 1, transform: "translate3d(0, 0, 0)" }}
+          transition={{ duration: 0.24, ease: [0.23, 1, 0.32, 1] }}
+        >
           {services[active].items.map((item) => (
             <li key={item}><CaretRight size={13} weight="bold" />{item}</li>
           ))}
-        </ul>
-      </div>
+        </motion.ul>
+      </motion.div>
     </div>
   );
 }
