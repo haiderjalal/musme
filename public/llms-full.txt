@@ -36,7 +36,7 @@ Musme builds AI systems, content, and digital products for owner-led businesses,
 ## Products
 
 - Test Shift: rent an AI QA team by the hour. Four agents test your site across dev, staging, UAT, and prod, then hand you the bug report. https://testshift.musme.co/
-- Citable: scan a page to see which content AI search crawlers can read and which only appears after JavaScript. https://aeogeo.musme.co/
+- Citable: scan a page to see which content AI search crawlers can read and which only appears after JavaScript. https://citable.musme.co/
 - PDFDesk: edit PDFs like a Word document. Change text, add images and signatures, reorder pages, and convert between PDF and Word, free and with no account. https://pdfdesk.musme.co/
 
 ## Frequently asked questions

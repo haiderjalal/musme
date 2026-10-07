@@ -49,7 +49,7 @@ const products = [
     name: "Citable",
     category: "AI search visibility",
     body: "See your site the way AI search does. Scan any page to find which content AI crawlers can actually read, and which only appears after JavaScript.",
-    url: "https://aeogeo.musme.co/",
+    url: "https://citable.musme.co/",
   },
   {
     name: "PDFDesk",
