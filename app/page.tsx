@@ -57,6 +57,12 @@ const products = [
     body: "Edit PDFs like a Word document. Change text, add images and signatures, reorder pages, and convert between PDF and Word, free and with no account.",
     url: "https://pdfdesk.musme.co/",
   },
+  {
+    name: "Dressify",
+    category: "Tailoring marketplace",
+    body: "Find skilled local tailors and women-led home ateliers, choose a design, share your measurements, and have your outfit collected, stitched, and delivered.",
+    url: "https://dressify.musme.co/",
+  },
 ];
 
 const steps = [
@@ -98,7 +104,7 @@ const faqs = [
   ],
   [
     "Does Musme have its own products?",
-    "Yes. Test Shift rents an AI QA team by the hour, with four agents testing your site across dev, staging, UAT, and prod. Citable shows which content AI search crawlers can read. PDFDesk edits PDFs like a Word document and converts between PDF and Word. All three are listed in the products section.",
+    "Yes. Test Shift rents an AI QA team by the hour, with four agents testing your site across dev, staging, UAT, and prod. Citable shows which content AI search crawlers can read. PDFDesk edits PDFs like a Word document and converts between PDF and Word. Dressify connects customers with local tailors and women-led home ateliers for bespoke clothing, from design selection through delivery. All four are listed in the products section.",
   ],
 ];
 
