@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema, ContentPage, LAST_UPDATED, SITE_URL } from "@/components/ContentPage";
+import { FounderPortrait } from "@/components/FounderPortrait";
 
 export const metadata: Metadata = {
   title: "About Musme | AI systems for owner-led businesses",
   description: "Meet Musme and founder Haider Jalal. Learn how we build AI automation, content systems, websites, apps, and custom software for healthcare, restaurants, and owner-led businesses.",
   alternates: { canonical: "/about" },
-  openGraph: { title: "About Musme", description: "AI systems designed around real operations, not hype.", url: "/about" },
+  openGraph: {
+    title: "About Musme",
+    description: "AI systems designed around real operations, not hype.",
+    url: "/about",
+    images: [{ url: "/images/founder-haider-jalal.png", width: 1915, height: 821, alt: "Haider Jalal, founder of Musme" }],
+  },
 };
 
 const schema = {
@@ -36,6 +42,7 @@ const schema = {
       "@id": `${SITE_URL}/#founder`,
       name: "Haider Jalal",
       jobTitle: "Founder of Musme",
+      image: `${SITE_URL}/images/founder-haider-jalal.png`,
       worksFor: { "@id": `${SITE_URL}/#organization` },
       sameAs: ["https://linkedin.com/in/haiderjalal"],
     },
@@ -70,10 +77,14 @@ export default function AboutPage() {
         </article>
       </section>
 
-      <section>
-        <h2>Who founded Musme?</h2>
-        <p>Musme was founded by Haider Jalal, a builder focused on using automation, design, and software to solve operational problems for growing businesses. Haider leads strategy and product direction, working from the business problem outward rather than starting with a particular tool.</p>
-        <p>Connect with Haider on <a href="https://linkedin.com/in/haiderjalal" target="_blank" rel="noreferrer">LinkedIn</a> or email <a href="mailto:hello@musme.ai">hello@musme.ai</a>.</p>
+      <section className="founder-section" aria-labelledby="founder-heading">
+        <FounderPortrait />
+        <div className="founder-copy">
+          <p className="content-kicker">Founder</p>
+          <h2 id="founder-heading">Haider Jalal</h2>
+          <p>Musme was founded by Haider Jalal, a builder focused on using automation, design, and software to solve operational problems for growing businesses. Haider leads strategy and product direction, working from the business problem outward rather than starting with a particular tool.</p>
+          <p>Connect with Haider on <a href="https://linkedin.com/in/haiderjalal" target="_blank" rel="noreferrer">LinkedIn</a> or email <a href="mailto:hello@musme.ai">hello@musme.ai</a>.</p>
+        </div>
       </section>
 
       <section>

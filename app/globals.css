@@ -1756,6 +1756,86 @@ a:focus-visible {
   background: var(--light);
 }
 
+.founder-section {
+  position: relative;
+  overflow: hidden;
+  padding: 0 !important;
+  border: 0 !important;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.founder-portrait {
+  position: relative;
+  min-height: clamp(440px, 50vw, 650px);
+  margin: 0;
+  overflow: hidden;
+  background: #111;
+}
+
+.founder-portrait::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(5, 5, 5, 0.9) 0%, rgba(5, 5, 5, 0.6) 28%, transparent 58%),
+    linear-gradient(0deg, rgba(5, 5, 5, 0.6), transparent 28%);
+  content: "";
+  pointer-events: none;
+}
+
+.founder-portrait-media {
+  position: absolute;
+  inset: -28px;
+  will-change: transform;
+}
+
+.founder-portrait-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.founder-portrait figcaption {
+  position: absolute;
+  right: 24px;
+  bottom: 20px;
+  left: 24px;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.58);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.founder-copy {
+  position: absolute;
+  top: 50%;
+  left: clamp(28px, 6vw, 76px);
+  z-index: 2;
+  width: min(390px, 38%);
+  transform: translate3d(0, -50%, 0);
+}
+
+.founder-copy h2 {
+  color: var(--text);
+  font-size: clamp(3rem, 5vw, 5.4rem) !important;
+}
+
+.founder-copy > p:not(.content-kicker) {
+  color: #b7b7b7;
+  font-size: 0.96rem;
+  line-height: 1.65;
+}
+
+.founder-copy a {
+  color: var(--accent) !important;
+}
+
 .content-kicker {
   margin: 0 0 1.2rem;
   color: var(--accent-dark) !important;
@@ -1979,5 +2059,36 @@ a:focus-visible {
 
   .content-footer nav {
     justify-content: flex-start;
+  }
+
+  .founder-section {
+    background: var(--bg);
+  }
+
+  .founder-portrait {
+    min-height: 360px;
+  }
+
+  .founder-portrait::after {
+    background: linear-gradient(0deg, rgba(5, 5, 5, 0.78), transparent 48%);
+  }
+
+  .founder-portrait-media img {
+    object-position: 68% center;
+  }
+
+  .founder-copy {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    padding: 32px 24px 42px;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .founder-portrait-media {
+    will-change: auto;
   }
 }
