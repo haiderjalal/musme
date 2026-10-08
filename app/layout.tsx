@@ -25,10 +25,18 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.musme.co"),
-  title: "Musme | AI systems for ambitious businesses",
+  title: {
+    default: "Musme | AI systems for ambitious businesses",
+    template: "%s",
+  },
   description:
     "Musme designs AI automation, content systems, websites, apps, and custom software for healthcare, restaurants, and owner-led businesses.",
   alternates: { canonical: "/" },
+  authors: [{ name: "Haider Jalal", url: "https://linkedin.com/in/haiderjalal" }],
+  creator: "Haider Jalal",
+  publisher: "Musme",
+  keywords: ["AI automation agency", "AI content agency", "AI video generation", "web development", "custom software", "AI restaurant menus", "healthcare automation", "restaurant automation"],
+  robots: { index: true, follow: true },
   verification: { google: "b6jP-kvjVzTnQIP0DNLUY4U4GCf6548QcBdl_feErKo" },
   other: { "google-adsense-account": "ca-pub-4555492337139581" },
   openGraph: {
@@ -36,7 +44,16 @@ export const metadata: Metadata = {
     description:
       "AI systems, content, and digital products built around the way your business actually works.",
     type: "website",
+    url: "https://www.musme.co/",
+    siteName: "Musme",
+    locale: "en_US",
     images: [{ url: "/images/musme-sectors-brand.png", width: 1584, height: 992 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Musme | Less busywork. More business.",
+    description: "AI systems, content, and digital products built around the way your business actually works.",
+    images: ["/images/musme-sectors-brand.png"],
   },
 };
 

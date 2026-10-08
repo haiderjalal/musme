@@ -87,7 +87,7 @@ function OutlineMarquee({ text }: { text: string }) {
 }
 
 const SITE = "https://www.musme.co";
-const LAST_UPDATED = "2026-10-06";
+const LAST_UPDATED = "2026-10-08";
 
 const faqs = [
   [
@@ -396,13 +396,15 @@ export default function Home() {
             <span className="brand-name">musme</span>
           </a>
           <nav className="footer-links" aria-label="Social">
+            <a href="/about">About</a>
+            <a href="/services/ai-automation">Services</a>
+            <a href="/case-studies">Work</a>
+            <a href="/contact">Contact</a>
             <a href="https://linkedin.com/in/haiderjalal" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a href="https://instagram.com/haider.jalals" target="_blank" rel="noreferrer">Instagram</a>
-            <a href="mailto:hello@musme.ai">hello@musme.ai</a>
           </nav>
           <p>
             Written by Haider Jalal, Founder. Last updated{" "}
-            <time dateTime={LAST_UPDATED}>6 October 2026</time>. ©2026 Musme.
+            <time dateTime={LAST_UPDATED}>8 October 2026</time>. ©2026 Musme.
           </p>
         </Reveal>
       </div>

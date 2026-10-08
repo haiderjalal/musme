@@ -3,9 +3,16 @@
 > Musme builds AI systems, content, and digital products for owner-led businesses, especially in healthcare and restaurants.
 
 - [Musme home](https://www.musme.co/): services, selected work, products, and how a project works
+- [About Musme](https://www.musme.co/about): company, founder Haider Jalal, industries, and operating approach
+- [AI automation](https://www.musme.co/services/ai-automation): workflows, integrations, healthcare examples, and restaurant examples
+- [Website and software development](https://www.musme.co/services/web-development): websites, apps, AI menus, portals, and custom software
+- [AI content services](https://www.musme.co/services/ai-content): AI image generation, AI video generation, and social media systems
+- [Case studies](https://www.musme.co/case-studies): selected client websites and Musme products
+- [Contact Musme](https://www.musme.co/contact): email and project quote form
 - [Full text version](https://www.musme.co/llms-full.txt): the whole site in one markdown file
 - [Test Shift](https://testshift.musme.co/): rent an AI QA team by the hour
 - [Citable](https://citable.musme.co/): see which parts of a page AI search crawlers can read
 - [PDFDesk](https://pdfdesk.musme.co/): edit PDFs like a Word document
+- [Dressify](https://dressify.musme.co/): find nearby tailors and women-led home ateliers for bespoke clothing
 
 Contact: hello@musme.ai

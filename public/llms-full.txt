@@ -1,10 +1,19 @@
 # Musme
 
-> Musme builds AI systems, content, and digital products for owner-led businesses, especially in healthcare and restaurants. Last updated 2026-10-06.
+> Musme builds AI systems, content, and digital products for owner-led businesses, especially in healthcare and restaurants. Last updated 2026-10-08.
 
 Author: Haider Jalal, Founder (https://linkedin.com/in/haiderjalal)
 
 Site: https://www.musme.co/ · Contact: hello@musme.ai
+
+## Main pages
+
+- About Musme and founder Haider Jalal: https://www.musme.co/about
+- AI automation services: https://www.musme.co/services/ai-automation
+- Website, app, AI menu, and custom software development: https://www.musme.co/services/web-development
+- AI content, video, image, and social media services: https://www.musme.co/services/ai-content
+- Selected client work and products: https://www.musme.co/case-studies
+- Contact and project quote: https://www.musme.co/contact
 
 ## What does Musme do?
 
@@ -38,6 +47,7 @@ Musme builds AI systems, content, and digital products for owner-led businesses,
 - Test Shift: rent an AI QA team by the hour. Four agents test your site across dev, staging, UAT, and prod, then hand you the bug report. https://testshift.musme.co/
 - Citable: scan a page to see which content AI search crawlers can read and which only appears after JavaScript. https://citable.musme.co/
 - PDFDesk: edit PDFs like a Word document. Change text, add images and signatures, reorder pages, and convert between PDF and Word, free and with no account. https://pdfdesk.musme.co/
+- Dressify: find nearby tailors and women-led home ateliers, choose a design, share measurements, and arrange pickup and delivery. https://dressify.musme.co/
 
 ## Frequently asked questions
 
@@ -55,4 +65,4 @@ Every engagement starts close to the operation. We map the manual work, delays, 
 
 ### Does Musme have its own products?
 
-Yes. Test Shift rents an AI QA team by the hour, with four agents testing your site across dev, staging, UAT, and prod. Citable shows which content AI search crawlers can read. PDFDesk edits PDFs like a Word document and converts between PDF and Word. All three are listed in the products section.
+Yes. Test Shift rents an AI QA team by the hour, with four agents testing your site across dev, staging, UAT, and prod. Citable shows which content AI search crawlers can read. PDFDesk edits PDFs like a Word document and converts between PDF and Word. Dressify connects customers with local tailors and women-led home ateliers. All four are listed in the products section.

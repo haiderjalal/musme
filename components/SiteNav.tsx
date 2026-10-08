@@ -47,12 +47,11 @@ export function SiteNav() {
       </a>
       <Typewriter />
       <div className="nav-links">
-        <a href="#work">Work</a>
-        <a href="#services">Services</a>
-        <a href="#products">Products</a>
-        <a href="#process">Process</a>
-        <a href="#faq">FAQ</a>
-        <a href="#quote">Contact</a>
+        <a href="/about">About</a>
+        <a href="/services/ai-automation">Services</a>
+        <a href="/case-studies">Work</a>
+        <a href="/#products">Products</a>
+        <a href="/contact">Contact</a>
       </div>
     </nav>
   );
