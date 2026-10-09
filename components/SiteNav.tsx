@@ -2,6 +2,7 @@
 
 import { useReducedMotion } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const audiences = ["clinics", "restaurants", "owner-led businesses", "ambitious teams"];
@@ -47,11 +48,11 @@ export function SiteNav() {
       </a>
       <Typewriter />
       <div className="nav-links">
-        <a href="/about">About</a>
-        <a href="/services/ai-automation">Services</a>
-        <a href="/case-studies">Work</a>
-        <a href="/#products">Products</a>
-        <a href="/contact">Contact</a>
+        <Link href="/about">About</Link>
+        <Link href="/services/ai-automation">Services</Link>
+        <Link href="/case-studies">Work</Link>
+        <Link href="/#products">Products</Link>
+        <Link href="/contact">Contact</Link>
       </div>
     </nav>
   );

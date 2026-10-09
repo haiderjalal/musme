@@ -1,5 +1,6 @@
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
+import Link from "next/link";
 
 export const SITE_URL = "https://www.musme.co";
 export const LAST_UPDATED = "2026-10-08";
@@ -43,15 +44,15 @@ export function ContentPage({
       <a className="skip-link" href="#content">Skip to content</a>
 
       <nav className="content-nav" aria-label="Primary navigation">
-        <a className="brand" href="/" aria-label="Musme home">
+        <Link className="brand" href="/" aria-label="Musme home">
           <Image className="brand-mark" src="/images/musme-logo-mark.png" alt="" width={40} height={29} priority />
           <span className="brand-name">musme</span>
-        </a>
+        </Link>
         <div className="content-nav-links">
-          <a href="/about">About</a>
-          <a href="/services/ai-automation">Services</a>
-          <a href="/case-studies">Work</a>
-          <a href="/contact">Contact</a>
+          <Link href="/about">About</Link>
+          <Link href="/services/ai-automation">Services</Link>
+          <Link href="/case-studies">Work</Link>
+          <Link href="/contact">Contact</Link>
         </div>
       </nav>
 
@@ -70,19 +71,19 @@ export function ContentPage({
           <p className="section-label">Start a project</p>
           <h2 id="content-cta-title">Tell us where the work gets stuck.</h2>
           <p>We will map the friction and recommend a focused first move—automation, content, software, or a combination.</p>
-          <a className="content-button" href="/contact">
+          <Link className="content-button" href="/contact">
             Request a quote <ArrowRight size={20} weight="light" aria-hidden="true" />
-          </a>
+          </Link>
         </aside>
       )}
 
       <footer className="content-footer">
-        <a className="brand" href="/" aria-label="Musme home">
+        <Link className="brand" href="/" aria-label="Musme home">
           <Image className="brand-mark" src="/images/musme-logo-mark.png" alt="" width={40} height={29} />
           <span className="brand-name">musme</span>
-        </a>
+        </Link>
         <nav aria-label="Footer navigation">
-          {primaryLinks.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
+          {primaryLinks.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
         </nav>
         <p>Haider Jalal, Founder · <a href="mailto:hello@musme.ai">hello@musme.ai</a> · Updated 8 October 2026</p>
       </footer>

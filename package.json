@@ -9,21 +9,18 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@phosphor-icons/react": "latest",
-    "@react-three/fiber": "latest",
-    "motion": "latest",
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "three": "latest"
+    "@phosphor-icons/react": "2.1.10",
+    "motion": "13.4.2",
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
-    "@types/node": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
-    "@types/three": "latest",
+    "@types/node": "26.6.4",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "eslint": "^9.39.5",
-    "eslint-config-next": "latest",
+    "eslint-config-next": "16.4.0",
     "typescript": "^6.0.3"
   },
   "packageManager": "pnpm@11.19.0"

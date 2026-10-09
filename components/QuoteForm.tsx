@@ -106,8 +106,10 @@ export function QuoteForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
+        cache: "no-store",
+        credentials: "same-origin",
       });
-      const result = (await response.json()) as { message?: string };
+      const result = (await response.json().catch(() => ({}))) as { message?: string; requestId?: string };
       if (!response.ok) throw new Error(result.message || "Could not send your brief.");
       setStatus("success");
     } catch (error) {
