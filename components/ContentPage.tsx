@@ -1,9 +1,60 @@
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
 export const SITE_URL = "https://www.musme.co";
-export const LAST_UPDATED = "2026-10-08";
+export const LAST_UPDATED = "2026-10-14";
+
+export type PageImage = { url: string; width: number; height: number; alt: string };
+
+export const DEFAULT_OG_IMAGE: PageImage = {
+  url: "/images/musme-sectors-brand.png",
+  width: 1584,
+  height: 992,
+  alt: "A modern healthcare clinic and restaurant connected by a flowing system",
+};
+
+/**
+ * Builds the metadata every content page needs. Twitter is always set here because Next.js replaces
+ * the layout's `twitter` object in child pages, which would otherwise repeat the homepage title.
+ */
+export function buildPageMetadata({
+  title,
+  description,
+  path,
+  og,
+}: {
+  title: string;
+  description: string;
+  path: string;
+  og?: { title?: string; description?: string; image?: PageImage };
+}): Metadata {
+  const ogTitle = og?.title ?? title;
+  const ogDescription = og?.description ?? description;
+  const image = og?.image ?? DEFAULT_OG_IMAGE;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      title: ogTitle,
+      description: ogDescription,
+      url: path,
+      type: "website",
+      siteName: "Musme",
+      locale: "en_US",
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ogTitle,
+      description: ogDescription,
+      images: [image.url],
+    },
+  };
+}
 
 const primaryLinks = [
   ["About", "/about"],
@@ -85,7 +136,7 @@ export function ContentPage({
         <nav aria-label="Footer navigation">
           {primaryLinks.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
         </nav>
-        <p>Haider Jalal, Founder · <a href="mailto:hello@musme.ai">hello@musme.ai</a> · Updated 8 October 2026</p>
+        <p>Haider Jalal, Founder · <a href="mailto:hello@musme.ai">hello@musme.ai</a> · Updated 14 October 2026</p>
       </footer>
     </main>
   );

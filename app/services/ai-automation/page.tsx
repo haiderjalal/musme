@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import { BreadcrumbSchema, ContentPage, LAST_UPDATED, SITE_URL } from "@/components/ContentPage";
+import { BreadcrumbSchema, buildPageMetadata, ContentPage, LAST_UPDATED, SITE_URL } from "@/components/ContentPage";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "AI Automation Services | Musme",
   description: "AI automation for healthcare, restaurants, and owner-led businesses: lead response, intake, bookings, follow-ups, reporting, integrations, and custom workflows.",
-  alternates: { canonical: "/services/ai-automation" },
-  openGraph: { title: "AI Automation Services | Musme", description: "Practical workflows and integrations that remove repetitive work.", url: "/services/ai-automation" },
-};
+  path: "/services/ai-automation",
+  og: {
+    title: "AI Automation Services | Musme",
+    description: "Practical workflows and integrations that remove repetitive work.",
+  },
+});
 
 const faqs = [
   ["What can AI automation handle?", "AI automation can handle repetitive, rules-based work such as lead capture, qualification, appointment reminders, intake, document routing, follow-ups, review requests, reporting, and moving data between business systems."],
