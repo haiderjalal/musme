@@ -7,7 +7,9 @@ import { ScrollParallax } from "@/components/ScrollParallax";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ServicesList } from "@/components/ServicesList";
 import { SiteNav } from "@/components/SiteNav";
-import { SplitText, type SplitWord } from "@/components/SplitText";
+import { SplitText, type SplitWord, wordsFrom } from "@/components/SplitText";
+import { NetworkCanvas } from "@/components/NetworkCanvas";
+import { ScrubText, scrubWordsFrom } from "@/components/ScrubText";
 
 const projects = [
   {
@@ -80,6 +82,11 @@ const heroHeadline: SplitWord[] = [
   { text: "More", lineBreak: true },
   { text: "business.", accent: true },
 ];
+
+const formulaWords = scrubWordsFrom(
+  "We automate the work, not the relationship. Every engagement starts close to the operation: we find the friction, design the right system, and improve it with real use.",
+  ["the work", "close to the operation", "design the right system", "real use"],
+);
 
 /** Stagger for the hero entrance; the hero runs on load so it never waits for scroll or JavaScript. */
 const loadDelay = (ms: number): CSSProperties => ({ "--d": `${ms}ms` }) as CSSProperties;
@@ -188,11 +195,12 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
       <a className="skip-link" href="#work">Skip to selected work</a>
+      <NetworkCanvas />
       <ScrollProgress />
       <SiteNav />
 
       <section className="hero" id="top">
-        <div className="hero-copy">
+        <div className="hero-copy" data-scroll-exit="">
           <p className="hello" data-load-fade="" style={loadDelay(150)}><span aria-hidden="true" />Hi there!</p>
           <SplitText as="h1" words={heroHeadline} delay={120} />
           <p className="hero-sub" data-load-fade="" style={loadDelay(650)}>
@@ -217,9 +225,7 @@ export default function Home() {
         <div className="shell-indent">
           <Reveal direction="left"><SectionLabel>Our formula</SectionLabel></Reveal>
           <Reveal delay={0.08}>
-            <p className="statement">
-              We automate <em>the work</em>, not the relationship. Every engagement starts <em>close to the operation</em>: we find the friction, <em>design the right system</em>, and improve it with <em>real use</em>.
-            </p>
+            <ScrubText className="statement" words={formulaWords} />
             <a className="arrow-link" href="#quote">
               Start a project
               <span className="arrow-ring"><ArrowRight size={20} weight="light" aria-hidden="true" /></span>
@@ -255,14 +261,16 @@ export default function Home() {
                 direction={index % 2 === 0 ? "left" : "right"}
                 amount={0.12}
               >
-                <a href={project.url} target="_blank" rel="noreferrer">
-                  <div className="work-image">
-                    <Image src={project.image} alt={`Homepage of ${project.name}`} fill sizes="(max-width: 780px) 94vw, 46vw" />
-                  </div>
-                  <p className="work-category">{project.category}</p>
-                  <h3>{project.name}</h3>
-                  <p className="work-body">{project.body}</p>
-                </a>
+                <div className="tilt" data-tilt="">
+                  <a href={project.url} target="_blank" rel="noreferrer">
+                    <div className="work-image">
+                      <Image src={project.image} alt={`Homepage of ${project.name}`} fill sizes="(max-width: 780px) 94vw, 46vw" />
+                    </div>
+                    <p className="work-category">{project.category}</p>
+                    <h3>{project.name}</h3>
+                    <p className="work-body">{project.body}</p>
+                  </a>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -272,7 +280,7 @@ export default function Home() {
       <section className="products section" id="products">
         <div className="shell-indent">
           <Reveal direction="left"><SectionLabel>Our products</SectionLabel></Reveal>
-          <Reveal delay={0.06}><h2 className="products-title">Software we build and run ourselves.</h2></Reveal>
+          <SplitText as="h2" trigger="view" className="products-title" words={wordsFrom("Software we build and run ourselves.")} />
           <ul className="product-list">
             {products.map((product, index) => (
               <Reveal as="li" key={product.name} direction="left" delay={index * 0.07} amount={0.3}>
@@ -297,7 +305,7 @@ export default function Home() {
           <div className="shell-indent industries-grid">
             <Reveal direction="left">
               <SectionLabel>Who we build for</SectionLabel>
-              <h2>Built for businesses where every minute matters.</h2>
+              <SplitText as="h2" trigger="view" words={wordsFrom("Built for businesses where every minute matters.")} />
               <p className="lead-dark">
                 Musme starts with the real operation, then chooses the right mix of automation, content, and software.
               </p>
@@ -322,10 +330,17 @@ export default function Home() {
         <section className="process section" id="process">
           <div className="shell-indent">
             <Reveal direction="left"><SectionLabel>Process</SectionLabel></Reveal>
-            <Reveal delay={0.06}><h2>How does a Musme project work?</h2></Reveal>
-            <ol className="process-rows">
+            <SplitText as="h2" trigger="view" words={wordsFrom("How does a Musme project work?")} />
+            <ol className="process-rows" data-scroll-link="" style={{ "--n": steps.length } as CSSProperties}>
               {steps.map(([title, body], index) => (
-                <Reveal as="li" key={title} direction="left" delay={index * 0.06} amount={0.45}>
+                <Reveal
+                  as="li"
+                  key={title}
+                  direction="left"
+                  delay={index * 0.06}
+                  amount={0.45}
+                  style={{ "--i": index } as CSSProperties}
+                >
                   <span className="process-num">{String(index + 1).padStart(2, "0")}</span>
                   <strong>{title}</strong>
                   <span>{body}</span>
@@ -389,7 +404,7 @@ export default function Home() {
             <div className="quote-layout">
               <Reveal className="quote-intro">
                 <SectionLabel>Request a quote</SectionLabel>
-                <h2>Let&apos;s find the leverage.</h2>
+                <SplitText as="h2" trigger="view" words={wordsFrom("Let's find the leverage.")} />
                 <p>Answer four quick questions. We will turn the messy part of your operation into a clear first move.</p>
                 <a className="drop-line" href="mailto:hello@musme.ai">or drop us a line</a>
               </Reveal>

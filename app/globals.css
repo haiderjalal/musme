@@ -34,7 +34,8 @@ html {
 body {
   margin: 0;
   color: var(--text);
-  background: var(--bg);
+  /* html supplies the page colour. A body background would paint over the fixed network canvas. */
+  background: transparent;
   font-family: var(--font-sans), Arial, sans-serif;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
@@ -1725,6 +1726,117 @@ html.js:not(.rm) .service-tags-enter {
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Split headings that reveal when they scroll into view (SplitText trigger="view") */
+
+html.js:not(.rm) [data-split="view"]:not([data-in]) .split-unit {
+  transform: translate3d(0, 112%, 0) rotate(5deg);
+  opacity: 0;
+}
+
+html.js:not(.rm) [data-split="view"] .split-unit {
+  transition: transform 900ms var(--ease-out) calc(var(--d, 0ms) + var(--i, 0) * 60ms),
+    opacity 600ms ease calc(var(--d, 0ms) + var(--i, 0) * 60ms);
+}
+
+html.js:not(.rm):not(.ready) [data-split="view"]:not([data-in]) .split-unit {
+  animation: reveal-failsafe 0s 4s forwards;
+}
+
+/* Scroll-linked effects. JavaScript writes --p, --n, and --out (see lib/scroll-links.ts); the CSS decides how they look. */
+
+/* Hero copy drifts up and fades as the visitor scrolls away from it */
+html.js:not(.rm) [data-scroll-exit] {
+  transform: translate3d(0, calc(var(--out, 0) * -90px), 0);
+  opacity: calc(1 - var(--out, 0) * 0.85);
+}
+
+/* Statement words light up in turn as the paragraph crosses the viewport. Unlit words stay at 70%, above 3:1 for this large text. */
+html.js:not(.rm) .scrub-word {
+  --lit: clamp(0, var(--p, 1) * var(--n, 1) - var(--i, 0), 1);
+  opacity: calc(0.7 + 0.3 * var(--lit));
+}
+
+.scrub-emphasis {
+  color: #fff;
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+/* Process rows fill in a rule as the timeline scrolls past, one row at a time */
+html.js:not(.rm) .process-rows li {
+  --lit: clamp(0, var(--p, 1) * var(--n, 1) - var(--i, 0), 1);
+}
+
+.process-rows li::before {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 1px;
+  background: var(--accent-dark);
+  content: "";
+  transform: scaleX(var(--lit, 1));
+  transform-origin: left center;
+}
+
+html.js:not(.rm) .process-num {
+  opacity: calc(0.35 + 0.65 * var(--lit, 1));
+}
+
+/* Work cards tilt in 3D toward a fine pointer and show a soft light that follows it */
+.tilt {
+  position: relative;
+  transform: perspective(1100px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 500ms var(--ease-out);
+}
+
+.tilt::after {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(360px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(107, 239, 188, 0.14), transparent 65%);
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out);
+  pointer-events: none;
+  content: "";
+}
+
+.tilt[data-tilt-active]::after {
+  opacity: 1;
+}
+
+/* 3D network: one fixed canvas behind the page. Opaque light sections cover it when they arrive. */
+.network-canvas {
+  --canvas-opacity: 1;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1200ms var(--ease-out);
+}
+
+.network-canvas[data-state="ready"] {
+  opacity: var(--canvas-opacity);
+}
+
+.network-canvas[data-state="off"] {
+  display: none;
+}
+
+@media (max-width: 780px) {
+  .network-canvas {
+    --canvas-opacity: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .network-canvas {
+    transition: none;
   }
 }
 

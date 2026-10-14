@@ -5,6 +5,8 @@ import { useEffect } from "react";
 
 import { startMagneticLean } from "@/lib/magnetic";
 import { startRevealObserver } from "@/lib/reveal";
+import { startScrollLinks } from "@/lib/scroll-links";
+import { startTilt } from "@/lib/tilt";
 
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
@@ -18,11 +20,15 @@ export function PageEffects() {
   useEffect(() => {
     document.documentElement.classList.add("ready");
     const stopReveals = startRevealObserver();
+    const stopScrollLinks = startScrollLinks();
     const stopMagnetic = startMagneticLean();
+    const stopTilt = startTilt();
 
     return () => {
       stopReveals();
+      stopScrollLinks();
       stopMagnetic();
+      stopTilt();
     };
   }, [pathname]);
 
