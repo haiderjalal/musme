@@ -1,4 +1,4 @@
-import { CLUSTER_COUNT } from "@/lib/network/formations";
+import { CLUSTER_COUNT, FORMATION } from "@/lib/network/formations";
 import { clamp, smoothstep } from "@/lib/math";
 
 /**
@@ -10,7 +10,7 @@ type Span = { top: number; height: number };
 type Anchor = { y: number; form: number };
 
 export type ChapterLayout = {
-  /** Scroll positions where a formation is fully reached (section centred in the viewport). */
+  /** Scroll positions where each formation is fully reached, in increasing order. */
   anchors: Anchor[];
   services: Span;
   /** Scroll position at which the light section covers the canvas. */
@@ -18,7 +18,7 @@ export type ChapterLayout = {
 };
 
 export type FormationState = {
-  /** 0 = sphere, 1 = clusters, 2 = disc. */
+  /** Continuous formation value, from FORMATION.globe to FORMATION.ring. */
   form: number;
   /** Highlighted cluster as a continuous index, from 0 to CLUSTER_COUNT - 1. */
   highlight: number;
@@ -26,7 +26,13 @@ export type FormationState = {
   visible: boolean;
 };
 
-const IDLE_STATE: FormationState = { form: 0, highlight: 0, visible: true };
+const IDLE_STATE: FormationState = { form: FORMATION.globe, highlight: 0, visible: true };
+
+/**
+ * The work block's shape is positioned above its project cards, so it is visible while the cards are on screen.
+ * This many viewport heights are subtracted from the section top.
+ */
+const WORK_LEAD_VIEWPORTS = 0.3;
 
 function readSpan(selector: string): Span | null {
   const element = document.querySelector(selector);
@@ -37,21 +43,23 @@ function readSpan(selector: string): Span | null {
 
 export function measureChapters(): ChapterLayout | null {
   const hero = readSpan("#top");
+  const about = readSpan("#about");
   const services = readSpan("#services");
   const work = readSpan("#work");
   const products = readSpan("#products");
   const cover = readSpan(".light");
-  if (!hero || !services || !work || !products) return null;
+  if (!hero || !about || !services || !work || !products) return null;
 
   const viewport = window.innerHeight;
   const centre = (span: Span): number => span.top + span.height / 2 - viewport / 2;
 
   return {
     anchors: [
-      { y: centre(hero), form: 0 },
-      { y: centre(services), form: 1 },
-      { y: centre(work), form: 2 },
-      { y: centre(products), form: 0 },
+      { y: centre(hero), form: FORMATION.globe },
+      { y: centre(about), form: FORMATION.network },
+      { y: centre(services), form: FORMATION.clusters },
+      { y: work.top - viewport * WORK_LEAD_VIEWPORTS, form: FORMATION.gallery },
+      { y: centre(products), form: FORMATION.ring },
     ],
     services,
     coverTop: cover ? cover.top : Number.POSITIVE_INFINITY,

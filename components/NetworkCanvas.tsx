@@ -18,8 +18,8 @@ function whenIdle(callback: () => void): () => void {
 }
 
 /**
- * The 3D network behind the page. three.js is imported only after the browser is idle. If WebGL is unavailable
- * the canvas is hidden and the rest of the page is unaffected.
+ * The 3D network behind the page. three.js and the logo are loaded only after the browser is idle. If WebGL is
+ * unavailable the canvas is hidden and the rest of the page is unaffected.
  */
 export function NetworkCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -29,27 +29,31 @@ export function NetworkCanvas() {
     if (!canvas) return;
 
     let cancelled = false;
-    let destroy: (() => void) | undefined;
+    let network: { destroy: () => void } | null = null;
 
     const cancelIdle = whenIdle(() => {
-      import("@/lib/network/scene").then(({ createNetwork }) => {
-        if (cancelled) return;
-        try {
-          const animate = !window.matchMedia(REDUCED_MOTION_QUERY).matches;
-          destroy = createNetwork(canvas, { animate }).destroy;
+      const animate = !window.matchMedia(REDUCED_MOTION_QUERY).matches;
+
+      import("@/lib/network/scene")
+        .then(({ createNetwork }) => createNetwork(canvas, { animate }))
+        .then((created) => {
+          // The visitor may have left the page while the scene was loading.
+          if (cancelled) {
+            created.destroy();
+            return;
+          }
+          network = created;
           canvas.dataset.state = "ready";
-        } catch {
+        })
+        .catch(() => {
           canvas.dataset.state = "off";
-        }
-      }).catch(() => {
-        canvas.dataset.state = "off";
-      });
+        });
     });
 
     return () => {
       cancelled = true;
       cancelIdle();
-      destroy?.();
+      network?.destroy();
     };
   }, []);
 
