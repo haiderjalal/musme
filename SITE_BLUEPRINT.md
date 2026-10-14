@@ -17,7 +17,7 @@ Primary audiences:
 1. **Hero**: the business outcome, one contact action, and a 3D connected-system metaphor.
 2. **Operational friction**: familiar manual tasks that make the problem concrete.
 3. **Capability story**: automation, content, digital products, and growth operations in a scroll-led sequence.
-4. **Industry focus**: separate healthcare and restaurant propositions using one bespoke editorial visual.
+4. **Industry focus**: separate healthcare and restaurant propositions using one bespoke editorial visual, then a workflow list that links each workflow to its service page.
 5. **Engagement model**: Observe, Design, Connect, Improve.
 6. **Service index**: the full breadth of what Musme can deliver without turning the page into a feature dump.
 7. **Final conversion**: a single, repeated contact intent.
