@@ -1,8 +1,10 @@
 "use client";
 
 import { CaretRight } from "@phosphor-icons/react";
-import { motion, useInView, useReducedMotion } from "motion/react";
+import { useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+
+import { getRevealProps } from "@/components/Reveal";
 
 const services = [
   {
@@ -39,7 +41,6 @@ function ServiceItem({
   onActive: (index: number) => void;
 }) {
   const ref = useRef<HTMLLIElement>(null);
-  const reduce = useReducedMotion();
   const inView = useInView(ref, { margin: "-45% 0px -45% 0px" });
 
   useEffect(() => {
@@ -47,13 +48,10 @@ function ServiceItem({
   }, [inView, index, onActive]);
 
   return (
-    <motion.li
+    <li
       ref={ref}
       className={`service-row${active ? " is-active" : ""}`}
-      initial={{ opacity: 0, transform: reduce ? "translate3d(0, 0, 0)" : "translate3d(-34px, 0, 0)" }}
-      whileInView={{ opacity: 1, transform: "translate3d(0, 0, 0)" }}
-      viewport={{ once: true, amount: 0.35 }}
-      transition={{ duration: 0.7, delay: index * 0.06, ease: [0.23, 1, 0.32, 1] }}
+      {...getRevealProps({ direction: "left", delay: index * 0.06, amount: 0.35 })}
     >
       <span className="service-num">{String(index + 1).padStart(2, "0")}</span>
       <div>
@@ -65,13 +63,12 @@ function ServiceItem({
           ))}
         </ul>
       </div>
-    </motion.li>
+    </li>
   );
 }
 
 export function ServicesList() {
   const [active, setActive] = useState(0);
-  const reduce = useReducedMotion();
 
   return (
     <div className="services-layout">
@@ -86,26 +83,13 @@ export function ServicesList() {
           />
         ))}
       </ol>
-      <motion.div
-        className="services-panel"
-        aria-hidden="true"
-        initial={{ opacity: 0, transform: reduce ? "translate3d(0, 0, 0)" : "translate3d(34px, 0, 0)" }}
-        whileInView={{ opacity: 1, transform: "translate3d(0, 0, 0)" }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
-      >
-        <motion.ul
-          className="service-tags"
-          key={active}
-          initial={{ opacity: 0, transform: reduce ? "translate3d(0, 0, 0)" : "translate3d(0, 10px, 0)" }}
-          animate={{ opacity: 1, transform: "translate3d(0, 0, 0)" }}
-          transition={{ duration: 0.24, ease: [0.23, 1, 0.32, 1] }}
-        >
+      <div className="services-panel" aria-hidden="true" {...getRevealProps({ direction: "right", amount: 0.2 })}>
+        <ul className="service-tags service-tags-enter" key={active}>
           {services[active].items.map((item) => (
             <li key={item}><CaretRight size={13} weight="bold" />{item}</li>
           ))}
-        </motion.ul>
-      </motion.div>
+        </ul>
+      </div>
     </div>
   );
 }

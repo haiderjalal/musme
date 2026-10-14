@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, Geist_Mono, Outfit } from "next/font/google";
 import Script from "next/script";
+
+import { PageEffects } from "@/components/PageEffects";
+
 import "./globals.css";
+
+/**
+ * Runs before first paint so the motion contract is known before any hidden state is applied:
+ * `js` means hidden-before-reveal states may be used, `rm` means the visitor asked for reduced motion.
+ */
+const PRE_PAINT_SCRIPT = `(function(){var d=document.documentElement;d.classList.add('js');try{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('rm');}catch(e){}})();`;
 
 const outfit = Outfit({
   variable: "--font-sans",
@@ -59,9 +68,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${outfit.variable} ${serif.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${serif.variable} ${geistMono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: PRE_PAINT_SCRIPT }} />
+      </head>
       <body>
         {children}
+        <PageEffects />
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4555492337139581"

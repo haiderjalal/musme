@@ -1,11 +1,13 @@
 import { ArrowDownRight, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { QuoteForm } from "@/components/QuoteForm";
 import { Reveal } from "@/components/Reveal";
 import { ScrollParallax } from "@/components/ScrollParallax";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { ServicesList } from "@/components/ServicesList";
 import { SiteNav } from "@/components/SiteNav";
+import { SplitText, type SplitWord } from "@/components/SplitText";
 
 const projects = [
   {
@@ -71,6 +73,16 @@ const steps = [
   ["Connect", "Build, integrate, test, and launch without operational chaos."],
   ["Improve", "Use real feedback and performance to make the system sharper."],
 ];
+
+const heroHeadline: SplitWord[] = [
+  { text: "Less" },
+  { text: "busywork." },
+  { text: "More", lineBreak: true },
+  { text: "business.", accent: true },
+];
+
+/** Stagger for the hero entrance; the hero runs on load so it never waits for scroll or JavaScript. */
+const loadDelay = (ms: number): CSSProperties => ({ "--d": `${ms}ms` }) as CSSProperties;
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return <p className="section-label">{children}</p>;
@@ -180,18 +192,14 @@ export default function Home() {
       <SiteNav />
 
       <section className="hero" id="top">
-        <Reveal className="hero-copy" direction="left" amount={0.08}>
-          <p className="hello"><span aria-hidden="true" />Hi there!</p>
-          <h1>
-            Less busywork.
-            <br />
-            More <span className="accent">business.</span>
-          </h1>
-          <p className="hero-sub">
+        <div className="hero-copy">
+          <p className="hello" data-load-fade="" style={loadDelay(150)}><span aria-hidden="true" />Hi there!</p>
+          <SplitText as="h1" words={heroHeadline} delay={120} />
+          <p className="hero-sub" data-load-fade="" style={loadDelay(650)}>
             We build AI systems, content, and digital products that do the repetitive work for you.
           </p>
-        </Reveal>
-        <a className="circle-link hero-circle" href="#work" aria-label="See selected work">
+        </div>
+        <a className="circle-link hero-circle" data-magnetic="" href="#work" aria-label="See selected work">
           <ArrowDownRight size={30} weight="light" aria-hidden="true" />
         </a>
         <ScrollParallax className="hero-media" distance={42}>
@@ -233,7 +241,7 @@ export default function Home() {
         </div>
         <Reveal className="work-head" direction="scale" amount={0.08}>
           <OutlineMarquee text="selected work ·" />
-          <a className="circle-link work-circle" href="#quote" aria-label="Start a project">
+          <a className="circle-link work-circle" data-magnetic="" href="#quote" aria-label="Start a project">
             <ArrowDownRight size={34} weight="light" aria-hidden="true" />
           </a>
         </Reveal>
