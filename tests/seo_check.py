@@ -40,6 +40,7 @@ with sync_playwright() as playwright:
     robots = context.request.get(f"{BASE_URL}/robots.txt")
     assert robots.status == 200
     assert "User-agent: OAI-SearchBot" in robots.text()
+    assert "User-agent: GPTBot" in robots.text()
     assert "Sitemap: https://www.musme.co/sitemap.xml" in robots.text()
 
     sitemap = context.request.get(f"{BASE_URL}/sitemap.xml")

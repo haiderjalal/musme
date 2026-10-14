@@ -1,6 +1,6 @@
 # Musme
 
-> Musme builds AI systems, content, and digital products for owner-led businesses, especially in healthcare and restaurants. Last updated 2026-10-08.
+> Musme builds AI systems, content, and digital products for owner-led businesses, especially in healthcare and restaurants. Last updated 2026-10-14.
 
 Author: Haider Jalal, Founder (https://linkedin.com/in/haiderjalal)
 
@@ -27,6 +27,32 @@ Musme builds AI systems, content, and digital products for owner-led businesses,
 | AI content engine | Turns strategy, scripts, video, imagery, and publishing into one managed system | AI video, image systems, content, social media |
 | Digital products | Fast websites, apps, AI menus, portals, and custom software with intelligence built in | Websites, apps, AI menus, custom software |
 | Growth operations | Captures what works, surfaces the next action, and improves the customer journey over time | CRM, retention, analytics, optimisation |
+
+## Healthcare and restaurant workflows
+
+Most projects begin with one task your team still does by hand. These are the workflows we design most often in our two core sectors. Each one keeps approvals and sensitive decisions with the people responsible for them.
+
+### Healthcare
+
+Much of clinic administration is repeated: forms, reminders, and handoffs between staff. We design those routine steps as a system, so the team keeps its time for patients while approvals stay with people. Patient education and reminder content is reviewed for accuracy, privacy, and appropriate claims before it goes out.
+
+- Patient intake and document collection
+- Appointment reminders and follow-ups
+- Internal referral and task routing
+- Approved summaries and operational reporting
+
+### Restaurants
+
+Guest experience starts before the table. Bookings, menus, messages, and reviews work better when the front of house and the back office share one set of information. Menus and offers stay simple for restaurant teams to update.
+
+- Booking confirmations and guest messaging
+- Review requests and response workflows
+- Menu, inventory, and supplier updates
+- AI menus with live availability and reservation links
+
+Not sure which workflow fits? [Describe the operation on our contact page](https://www.musme.co/contact), and we will recommend a focused first move.
+
+Related: [AI automation for clinics and restaurants](https://www.musme.co/services/ai-automation) · [Websites, apps, and AI menus](https://www.musme.co/services/web-development) · [AI video and image content systems](https://www.musme.co/services/ai-content) · [Selected client websites and products](https://www.musme.co/case-studies)
 
 ## How does a Musme project work?
 
