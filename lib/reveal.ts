@@ -6,8 +6,11 @@ const THRESHOLDS = Array.from({ length: 51 }, (_, step) => step / 50);
 
 const DEFAULT_AMOUNT = 0.18;
 
+/** Elements that reveal once: whole blocks (`data-reveal`) and headings that split into words (`data-split="view"`). */
+const REVEAL_SELECTOR = "[data-reveal]:not([data-in]), [data-split='view']:not([data-in])";
+
 /**
- * Sets `data-in` on each `[data-reveal]` element once it enters the viewport.
+ * Sets `data-in` on each revealing element once it enters the viewport.
  * Returns a cleanup function that stops observing and removes the scroll listener.
  */
 export function startRevealObserver(): () => void {
@@ -45,7 +48,7 @@ export function startRevealObserver(): () => void {
     if (frame === 0 && pending.size > 0) frame = requestAnimationFrame(sweep);
   };
 
-  document.querySelectorAll<HTMLElement>("[data-reveal]:not([data-in])").forEach((element) => {
+  document.querySelectorAll<HTMLElement>(REVEAL_SELECTOR).forEach((element) => {
     pending.add(element);
     observer.observe(element);
   });

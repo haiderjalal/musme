@@ -13,6 +13,8 @@ type RevealOptions = {
 type RevealProps = RevealOptions & {
   children: React.ReactNode;
   className?: string;
+  /** Extra inline custom properties, for example `--i` for list stagger. */
+  style?: CSSProperties;
   as?: "div" | "li" | "article" | "footer";
 };
 
@@ -29,11 +31,12 @@ export function getRevealProps({ delay = 0, direction = "up", amount = 0.18 }: R
 }
 
 /** Server-rendered reveal wrapper: its content is in the first HTML, so it is readable without JavaScript. */
-export function Reveal({ children, className, as = "div", ...options }: RevealProps) {
+export function Reveal({ children, className, style, as = "div", ...options }: RevealProps) {
   const Component = as as "div";
+  const { style: revealStyle, ...revealAttributes } = getRevealProps(options);
 
   return (
-    <Component className={className} {...getRevealProps(options)}>
+    <Component className={className} {...revealAttributes} style={{ ...revealStyle, ...style }}>
       {children}
     </Component>
   );
