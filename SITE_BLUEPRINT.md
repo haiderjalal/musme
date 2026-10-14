@@ -31,6 +31,14 @@ Primary audiences:
 - Motion: hero entrance, scroll reveals, scroll-linked depth, one restrained marquee, pointer-responsive WebGL.
 - Accessibility: reduced-motion fallbacks, visible focus states, high-contrast CTAs, semantic headings, descriptive image text.
 
+## Motion contract
+
+- Content is in the first HTML. Hidden-before-reveal states apply only when the pre-paint script in `app/layout.tsx` sets `html.js`, and never under `html.rm` (reduced motion).
+- `Reveal` and `getRevealProps` (`components/Reveal.tsx`) tag elements with `data-reveal`. `PageEffects` observes them through `lib/reveal.ts` and sets `data-in`. A 4 s CSS failsafe shows everything if hydration never finishes.
+- Load-time entrances (the hero headline via `SplitText`, and `data-load-fade`) are pure CSS and do not wait for scroll or JavaScript.
+- `data-magnetic` controls lean toward fine mouse pointers only (`lib/magnetic.ts`).
+- Brand palette and typography stay as defined above; the motion system does not introduce new colours, fonts, or animation libraries.
+
 ## Conversion strategy
 
 The same phrase, **Start a project**, is used for every contact action. The production version should connect this to a calendar or a short qualification form once the preferred scheduling system and inbox are confirmed.

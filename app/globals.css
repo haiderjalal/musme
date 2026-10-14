@@ -61,7 +61,7 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-a:focus-visible {
+:where(a, button, input, textarea, select, summary):focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
@@ -208,12 +208,14 @@ a:focus-visible {
   color: var(--accent);
 }
 
+/* --magnet-x/--magnet-y are set by lib/magnetic.ts on fine pointers only. */
 .circle-link {
   display: grid;
   place-items: center;
   border: 1px solid var(--accent);
   border-radius: 50%;
   color: var(--text);
+  transform: translate3d(var(--magnet-x, 0px), var(--magnet-y, 0px), 0);
   transition: transform 400ms var(--ease-out), background-color 300ms var(--ease-out);
 }
 
@@ -1367,7 +1369,7 @@ a:focus-visible {
   }
 
   .circle-link:hover {
-    transform: scale(1.06);
+    transform: translate3d(var(--magnet-x, 0px), var(--magnet-y, 0px), 0) scale(1.06);
   }
 
   .arrow-link:hover .arrow-ring {
@@ -1608,6 +1610,121 @@ a:focus-visible {
   .work-image::after,
   .quote-ambient span {
     animation: none;
+  }
+}
+
+/* Motion contract
+ *
+ * html.js       JavaScript is running (set before first paint), so content may start hidden for a reveal.
+ * html.rm       Reduced motion is requested: nothing is hidden and nothing is animated.
+ * html.ready    Hydration finished (set by PageEffects). Until then, the failsafe below reveals everything.
+ *
+ * Every hidden-before-reveal rule is scoped to html.js:not(.rm), so visitors without JavaScript
+ * or with reduced motion always see the full page.
+ */
+
+[data-reveal="up"] {
+  --reveal-from: translate3d(0, 32px, 0);
+}
+
+[data-reveal="left"] {
+  --reveal-from: translate3d(-38px, 0, 0);
+}
+
+[data-reveal="right"] {
+  --reveal-from: translate3d(38px, 0, 0);
+}
+
+[data-reveal="scale"] {
+  --reveal-from: scale(0.96);
+}
+
+html.js:not(.rm) [data-reveal] {
+  transition: opacity 700ms var(--ease-out) var(--d, 0ms), transform 700ms var(--ease-out) var(--d, 0ms);
+}
+
+html.js:not(.rm) [data-reveal]:not([data-in]) {
+  opacity: 0;
+  transform: var(--reveal-from);
+}
+
+html.js:not(.rm):not(.ready) [data-reveal]:not([data-in]) {
+  animation: reveal-failsafe 0s 4s forwards;
+}
+
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+html.js:not(.rm) [data-load-fade] {
+  animation: load-fade 1100ms var(--ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes load-fade {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Headline words rise out of a mask. The padding keeps ascenders and descenders inside the mask. */
+.split-word {
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+.split-mask {
+  display: inline-block;
+  overflow: hidden;
+  padding: 0.08em 0 0.14em;
+  margin: -0.08em 0 -0.14em;
+  vertical-align: top;
+}
+
+.split-unit {
+  display: inline-block;
+}
+
+html.js:not(.rm) [data-split="load"] .split-unit {
+  animation: split-rise 900ms var(--ease-out) both;
+  animation-delay: calc(var(--d, 0ms) + var(--i, 0) * 70ms);
+}
+
+@keyframes split-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 112%, 0) rotate(5deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+html.js:not(.rm) .service-tags-enter {
+  animation: tags-enter 240ms var(--ease-out) both;
+}
+
+@keyframes tags-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 

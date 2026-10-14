@@ -1,42 +1,39 @@
-"use client";
+import type { CSSProperties } from "react";
 
-import { motion, useReducedMotion } from "motion/react";
+type RevealDirection = "up" | "left" | "right" | "scale";
 
-type RevealProps = {
-  children: React.ReactNode;
-  className?: string;
+type RevealOptions = {
+  /** Seconds to wait after the element is revealed. */
   delay?: number;
-  direction?: "up" | "left" | "right" | "scale";
-  as?: "div" | "li" | "article" | "footer";
+  direction?: RevealDirection;
+  /** Share of the element that must be visible before it reveals. */
   amount?: number;
 };
 
-const motionTags = {
-  div: motion.div,
-  li: motion.li,
-  article: motion.article,
-  footer: motion.footer,
+type RevealProps = RevealOptions & {
+  children: React.ReactNode;
+  className?: string;
+  as?: "div" | "li" | "article" | "footer";
 };
 
-const hiddenTransform = {
-  up: "translate3d(0, 32px, 0)",
-  left: "translate3d(-38px, 0, 0)",
-  right: "translate3d(38px, 0, 0)",
-  scale: "scale(0.96)",
-};
+/**
+ * Data attributes that drive the CSS reveal. Spread them onto an element when it needs its own ref or tag.
+ * The hidden state is applied by CSS only when JavaScript is running (see `html.js` in globals.css).
+ */
+export function getRevealProps({ delay = 0, direction = "up", amount = 0.18 }: RevealOptions = {}) {
+  return {
+    "data-reveal": direction,
+    "data-reveal-amount": amount,
+    style: { "--d": `${Math.round(delay * 1000)}ms` } as CSSProperties,
+  };
+}
 
-export function Reveal({ children, className, delay = 0, direction = "up", as = "div", amount = 0.18 }: RevealProps) {
-  const reduce = useReducedMotion();
-  const Component = motionTags[as] as typeof motion.div;
+/** Server-rendered reveal wrapper: its content is in the first HTML, so it is readable without JavaScript. */
+export function Reveal({ children, className, as = "div", ...options }: RevealProps) {
+  const Component = as as "div";
 
   return (
-    <Component
-      className={className}
-      initial={{ opacity: 0, transform: reduce ? "translate3d(0, 0, 0)" : hiddenTransform[direction] }}
-      whileInView={{ opacity: 1, transform: direction === "scale" ? "scale(1)" : "translate3d(0, 0, 0)" }}
-      viewport={{ once: true, amount }}
-      transition={{ duration: 0.7, delay, ease: [0.23, 1, 0.32, 1] }}
-    >
+    <Component className={className} {...getRevealProps(options)}>
       {children}
     </Component>
   );

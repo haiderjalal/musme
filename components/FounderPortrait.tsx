@@ -3,6 +3,7 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
 import { useRef } from "react";
+import { getRevealProps } from "@/components/Reveal";
 import founderPortrait from "@/public/images/founder-haider-jalal.png";
 
 export function FounderPortrait() {
@@ -21,14 +22,7 @@ export function FounderPortrait() {
   );
 
   return (
-    <motion.figure
-      ref={frame}
-      className="founder-portrait"
-      initial={{ opacity: 0, transform: reduce ? "translate3d(0, 0, 0)" : "translate3d(0, 30px, 0)" }}
-      whileInView={{ opacity: 1, transform: "translate3d(0, 0, 0)" }}
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
-    >
+    <figure ref={frame} className="founder-portrait" {...getRevealProps({ amount: 0.18 })}>
       <motion.div className="founder-portrait-media" style={{ transform }}>
         <Image
           src={founderPortrait}
@@ -41,6 +35,6 @@ export function FounderPortrait() {
         <span>Portrait 01</span>
         <span>Founder · Musme</span>
       </figcaption>
-    </motion.figure>
+    </figure>
   );
 }
