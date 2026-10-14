@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
-import { BreadcrumbSchema, ContentPage, LAST_UPDATED, SITE_URL } from "@/components/ContentPage";
+import { BreadcrumbSchema, buildPageMetadata, ContentPage, LAST_UPDATED, SITE_URL } from "@/components/ContentPage";
 import { QuoteForm } from "@/components/QuoteForm";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Contact Musme | Request an AI or Software Project Quote",
   description: "Contact Musme about AI automation, AI content, websites, apps, AI restaurant menus, or custom software. Email hello@musme.ai or send a project brief.",
-  alternates: { canonical: "/contact" },
-  openGraph: { title: "Contact Musme", description: "Tell us where the work gets stuck and receive a focused first recommendation.", url: "/contact" },
-};
+  path: "/contact",
+  og: {
+    title: "Contact Musme",
+    description: "Tell us where the work gets stuck and receive a focused first recommendation.",
+  },
+});
 
 const schema = {
   "@context": "https://schema.org",

@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { BreadcrumbSchema, ContentPage, LAST_UPDATED, SITE_URL } from "@/components/ContentPage";
+import { BreadcrumbSchema, buildPageMetadata, ContentPage, LAST_UPDATED, SITE_URL } from "@/components/ContentPage";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Website & Digital Product Case Studies | Musme",
   description: "Selected Musme projects across furniture, optical supply, eyewear retail, landscaping, AI quality assurance, AI visibility, PDF tools, and bespoke tailoring.",
-  alternates: { canonical: "/case-studies" },
-  openGraph: { title: "Selected Musme Work", description: "Websites and digital products designed around real business journeys.", url: "/case-studies" },
-};
+  path: "/case-studies",
+  og: {
+    title: "Selected Musme Work",
+    description: "Websites and digital products designed around real business journeys.",
+  },
+});
 
 const projects = [
   {
@@ -66,11 +69,19 @@ const schema = {
     {
       "@type": "ItemList",
       name: "Selected Musme projects",
-      itemListElement: [...projects, ...products.map(([name, sector, summary, url]) => ({ name, sector, summary, url }))].map((project, index) => ({
+      itemListElement: [
+        ...projects.map(({ name, summary, url }) => ({ name, description: summary, url })),
+        ...products.map(([name, , summary, url]) => ({ name, description: summary, url })),
+      ].map((work, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: project.name,
-        url: project.url,
+        item: {
+          "@type": "CreativeWork",
+          name: work.name,
+          description: work.description,
+          url: work.url,
+          creator: { "@id": `${SITE_URL}/#organization` },
+        },
       })),
     },
   ],

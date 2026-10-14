@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/components/ContentPage";
+import { LAST_UPDATED, SITE_URL } from "@/components/ContentPage";
 
 const routes = [
   ["", 1],
@@ -14,7 +14,7 @@ const routes = [
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map(([path, priority]) => ({
     url: `${SITE_URL}${path}`,
-    lastModified: "2026-10-08",
+    lastModified: LAST_UPDATED,
     changeFrequency: path === "" ? "weekly" : "monthly",
     priority,
   }));

@@ -1,6 +1,8 @@
 import { ArrowDownRight, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import type { CSSProperties } from "react";
+import { LAST_UPDATED } from "@/components/ContentPage";
+import { IndustryWorkflows } from "@/components/IndustryWorkflows";
 import { QuoteForm } from "@/components/QuoteForm";
 import { Reveal } from "@/components/Reveal";
 import { ScrollParallax } from "@/components/ScrollParallax";
@@ -106,7 +108,6 @@ function OutlineMarquee({ text }: { text: string }) {
 }
 
 const SITE = "https://www.musme.co";
-const LAST_UPDATED = "2026-10-08";
 
 const faqs = [
   [
@@ -327,6 +328,8 @@ export default function Home() {
           </div>
         </section>
 
+        <IndustryWorkflows />
+
         <section className="process section" id="process">
           <div className="shell-indent">
             <Reveal direction="left"><SectionLabel>Process</SectionLabel></Reveal>
@@ -427,7 +430,7 @@ export default function Home() {
           </nav>
           <p>
             Written by Haider Jalal, Founder. Last updated{" "}
-            <time dateTime={LAST_UPDATED}>8 October 2026</time>. ©2026 Musme.
+            <time dateTime={LAST_UPDATED}>14 October 2026</time>. ©2026 Musme.
           </p>
         </Reveal>
       </div>

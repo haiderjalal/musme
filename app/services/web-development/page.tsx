@@ -1,12 +1,30 @@
 import type { Metadata } from "next";
-import { BreadcrumbSchema, ContentPage, LAST_UPDATED, SITE_URL } from "@/components/ContentPage";
+import { BreadcrumbSchema, buildPageMetadata, ContentPage, LAST_UPDATED, SITE_URL } from "@/components/ContentPage";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Website, App & Custom Software Development | Musme",
   description: "Musme designs and develops fast websites, web apps, AI menus, portals, and custom software for healthcare, restaurants, and growing businesses.",
-  alternates: { canonical: "/services/web-development" },
-  openGraph: { title: "Web and Software Development | Musme", description: "Websites and software with intelligence built into the workflow.", url: "/services/web-development" },
-};
+  path: "/services/web-development",
+  og: {
+    title: "Web and Software Development | Musme",
+    description: "Websites and software with intelligence built into the workflow.",
+  },
+});
+
+const faqs = [
+  [
+    "What is included in a Musme website or software project?",
+    "Every project includes product and content strategy, user journeys, responsive interface design, frontend and backend development, CMS, API, CRM, and payment integrations, performance and accessibility work, technical SEO, testing, deployment, and documentation. Measurement and improvement continue after launch. You receive a focused first scope rather than a bundle of unnecessary features.",
+  ],
+  [
+    "Can Musme build an AI menu for a restaurant?",
+    "Yes. Musme builds searchable, multilingual AI menus with dietary and allergen guidance, live availability, recommendations, upsell logic, table ordering, reservation links, and analytics. Projects start with how your team already takes bookings and talks to guests, and the menu makes updates easier for restaurant teams.",
+  ],
+  [
+    "Does Musme build custom software or only websites?",
+    "Both. Musme builds marketing websites, web applications, customer and staff portals, internal tools, and custom software for processes that off-the-shelf tools do not fit. Each system is designed with APIs, permissions, automation, and clear ownership of data. Every project is built around the job the software needs to do.",
+  ],
+];
 
 const schema = {
   "@context": "https://schema.org",
@@ -27,6 +45,10 @@ const schema = {
       name: "Website, App & Custom Software Development | Musme",
       dateModified: LAST_UPDATED,
       about: { "@id": `${SITE_URL}/services/web-development#service` },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map(([question, answer]) => ({ "@type": "Question", name: question, acceptedAnswer: { "@type": "Answer", text: answer } })),
     },
   ],
 };
@@ -68,6 +90,13 @@ export default function WebDevelopmentPage() {
           <li>Testing, deployment, and documentation</li>
           <li>Post-launch measurement and improvement</li>
         </ul>
+      </section>
+
+      <section>
+        <h2>Web and software questions</h2>
+        <div className="content-faq">
+          {faqs.map(([question, answer]) => <article key={question}><h3>{question}</h3><p>{answer}</p></article>)}
+        </div>
       </section>
 
       <section>

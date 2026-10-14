@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const isDevelopment = process.env.NODE_ENV === "development";
+
+// 'unsafe-inline' stays in script-src on purpose. Next.js inline bootstrap scripts and the pre-paint
+// script in app/layout.tsx cannot run under a strict CSP without a per-request nonce, and a nonce
+// would force every page to render dynamically (no static or CDN caching). Revisit with a proxy.ts
+// nonce once that trade-off is approved. JSON-LD (application/ld+json) is never executed, so CSP
+// does not apply to it.
 const contentSecurityPolicy = `
   default-src 'self';
   base-uri 'self';
@@ -52,6 +58,12 @@ const nextConfig: NextConfig = {
       {
         source: "/:path*",
         headers: securityHeaders,
+      },
+      {
+        // Only same-origin callers (the quote form) should read API responses. Scoped to /api
+        // because a site-wide value would stop other sites embedding the logo and images.
+        source: "/api/:path*",
+        headers: [{ key: "Cross-Origin-Resource-Policy", value: "same-origin" }],
       },
       {
         source: "/",

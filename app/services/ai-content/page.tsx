@@ -1,12 +1,30 @@
 import type { Metadata } from "next";
-import { BreadcrumbSchema, ContentPage, LAST_UPDATED, SITE_URL } from "@/components/ContentPage";
+import { BreadcrumbSchema, buildPageMetadata, ContentPage, LAST_UPDATED, SITE_URL } from "@/components/ContentPage";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "AI Content, Video & Image Generation Services | Musme",
   description: "Musme builds managed AI content systems for strategy, scripts, image generation, video generation, social media, publishing, and performance improvement.",
-  alternates: { canonical: "/services/ai-content" },
-  openGraph: { title: "AI Content Services | Musme", description: "AI video, imagery, copy, and social publishing shaped into one repeatable system.", url: "/services/ai-content" },
-};
+  path: "/services/ai-content",
+  og: {
+    title: "AI Content Services | Musme",
+    description: "AI video, imagery, copy, and social publishing shaped into one repeatable system.",
+  },
+});
+
+const faqs = [
+  [
+    "What does an AI content system include?",
+    "You receive content strategy and channel priorities, brand voice and visual direction, a content calendar, and campaign concepts. Musme then produces AI-assisted scripts and copy, generated and edited images and video, and an approval and publishing workflow, followed by performance review and iteration.",
+  ],
+  [
+    "Does AI-generated content still need human review?",
+    "Yes. AI speeds up production, while strategy and human review protect quality, accuracy, and brand judgment. Healthcare content goes through careful review for accuracy, privacy, and appropriate claims. Approval steps are built into the workflow, so content reaches your audience only after approval.",
+  ],
+  [
+    "Which businesses is the AI content service built for?",
+    "Musme focuses on healthcare and restaurants. For healthcare, that means patient education, service explainers, clinic updates, and reminder content. For restaurants, it means menu launches, dish visuals, offers, events, and review-led ideas produced at a consistent pace. Owner-led businesses outside those sectors can use the same system.",
+  ],
+];
 
 const schema = {
   "@context": "https://schema.org",
@@ -27,6 +45,10 @@ const schema = {
       name: "AI Content, Video & Image Generation Services | Musme",
       dateModified: LAST_UPDATED,
       about: { "@id": `${SITE_URL}/services/ai-content#service` },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map(([question, answer]) => ({ "@type": "Question", name: question, acceptedAnswer: { "@type": "Answer", text: answer } })),
     },
   ],
 };
@@ -78,6 +100,13 @@ export default function AiContentPage() {
           <li>Approval and publishing workflow</li>
           <li>Performance review and iteration</li>
         </ul>
+      </section>
+
+      <section>
+        <h2>AI content questions</h2>
+        <div className="content-faq">
+          {faqs.map(([question, answer]) => <article key={question}><h3>{question}</h3><p>{answer}</p></article>)}
+        </div>
       </section>
     </ContentPage>
   );

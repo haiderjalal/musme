@@ -14,8 +14,15 @@ assert.equal(home.headers.get("x-frame-options"), "DENY");
 assert.match(home.headers.get("content-security-policy") || "", /frame-ancestors 'none'/);
 assert.match(home.headers.get("permissions-policy") || "", /camera=\(\)/);
 
+const securityTxt = await request("/.well-known/security.txt");
+assert.equal(securityTxt.status, 200, "security.txt must be published");
+assert.match(await securityTxt.text(), /^Contact: mailto:hello@musme\.ai$/m);
+
 const admin = await request("/admin");
 assert.equal(admin.status, 404, "No admin surface should be exposed");
+
+const apiResponse = await request("/api/quote");
+assert.equal(apiResponse.headers.get("cross-origin-resource-policy"), "same-origin", "API responses must not be embeddable cross-origin");
 
 for (const sensitivePath of ["/.env", "/.git/config", "/package.json", "/CLAUDE.md", "/tsconfig.tsbuildinfo"]) {
   const response = await request(sensitivePath);
