@@ -13,6 +13,8 @@ assert.equal(home.headers.get("x-content-type-options"), "nosniff");
 assert.equal(home.headers.get("x-frame-options"), "DENY");
 assert.match(home.headers.get("content-security-policy") || "", /frame-ancestors 'none'/);
 assert.match(home.headers.get("permissions-policy") || "", /camera=\(\)/);
+assert.equal(home.headers.get("x-permitted-cross-domain-policies"), "none", "Cross-domain policy files must be disabled");
+assert.equal(home.headers.get("set-cookie"), null, "The public site must not set cookies");
 
 const securityTxt = await request("/.well-known/security.txt");
 assert.equal(securityTxt.status, 200, "security.txt must be published");
@@ -24,7 +26,24 @@ assert.equal(admin.status, 404, "No admin surface should be exposed");
 const apiResponse = await request("/api/quote");
 assert.equal(apiResponse.headers.get("cross-origin-resource-policy"), "same-origin", "API responses must not be embeddable cross-origin");
 
-for (const sensitivePath of ["/.env", "/.git/config", "/package.json", "/CLAUDE.md", "/tsconfig.tsbuildinfo"]) {
+const SENSITIVE_PATHS = [
+  "/.env",
+  "/.env.example",
+  "/.git/HEAD",
+  "/.git/config",
+  "/package.json",
+  "/pnpm-lock.yaml",
+  "/next.config.ts",
+  "/CLAUDE.md",
+  "/AGENTS.md",
+  "/README.md",
+  "/SITE_BLUEPRINT.md",
+  "/tests/security_check.mjs",
+  "/tsconfig.tsbuildinfo",
+  "/brand-kit/Musme_Brand_Kit_v1.0.zip",
+];
+
+for (const sensitivePath of SENSITIVE_PATHS) {
   const response = await request(sensitivePath);
   assert.equal(response.status, 404, `${sensitivePath} must not be publicly exposed`);
 }
