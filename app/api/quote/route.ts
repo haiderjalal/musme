@@ -91,6 +91,12 @@ function json(body: object, status = 200, extraHeaders?: HeadersInit) {
   });
 }
 
+/** Logs why a request was refused. Never logs the client IP or submitted details. */
+function reject(requestId: string, reason: string, message: string, status: number, extraHeaders?: HeadersInit) {
+  console.warn("quote_request_rejected", { requestId, reason, status });
+  return json({ message }, status, extraHeaders);
+}
+
 function isCrossOrigin(request: Request) {
   const fetchSite = request.headers.get("sec-fetch-site");
   if (fetchSite === "cross-site") return true;
@@ -122,22 +128,24 @@ export async function POST(request: Request) {
   const requestId = crypto.randomUUID();
 
   if (isCrossOrigin(request)) {
-    return json({ message: "Forbidden." }, 403);
+    return reject(requestId, "cross_origin", "Forbidden.", 403);
   }
 
   if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json")) {
-    return json({ message: "Content-Type must be application/json." }, 415);
+    return reject(requestId, "unsupported_content_type", "Content-Type must be application/json.", 415);
   }
 
   const declaredLength = Number(request.headers.get("content-length") || 0);
   if (Number.isFinite(declaredLength) && declaredLength > MAX_BODY_BYTES) {
-    return json({ message: "Request is too large." }, 413);
+    return reject(requestId, "declared_body_too_large", "Request is too large.", 413);
   }
 
   const limit = rateLimit(request);
   if (limit.limited) {
-    return json(
-      { message: "Too many requests. Please try again in a few minutes." },
+    return reject(
+      requestId,
+      "rate_limited",
+      "Too many requests. Please try again in a few minutes.",
       429,
       { "Retry-After": String(limit.retryAfter) },
     );
@@ -147,15 +155,17 @@ export async function POST(request: Request) {
   try {
     const rawBody = await request.text();
     if (new TextEncoder().encode(rawBody).byteLength > MAX_BODY_BYTES) {
-      return json({ message: "Request is too large." }, 413);
+      return reject(requestId, "body_too_large", "Request is too large.", 413);
     }
     input = JSON.parse(rawBody) as QuotePayload;
     if (!input || typeof input !== "object" || Array.isArray(input)) throw new Error("Invalid body");
   } catch {
-    return json({ message: "Invalid request." }, 400);
+    return reject(requestId, "invalid_body", "Invalid request.", 400);
   }
 
   if (text(input.website, 200)) {
+    // Bots that fill the hidden field get a success response, so they cannot tell they were caught.
+    console.warn("quote_honeypot_filled", { requestId });
     return json({ ok: true });
   }
 
@@ -181,7 +191,7 @@ export async function POST(request: Request) {
     !ALLOWED_TIMELINES.has(timeline) ||
     details.length < 20
   ) {
-    return json({ message: "Please complete all required fields." }, 400);
+    return reject(requestId, "validation_failed", "Please complete all required fields.", 400);
   }
 
   const apiKey = process.env.RESEND_API_KEY?.trim();
